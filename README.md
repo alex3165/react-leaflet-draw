@@ -2,6 +2,12 @@
 
 React component build on top of [React-Leaflet](https://github.com/PaulLeCam/react-leaflet) that integrate [leaflet-draw](https://github.com/Leaflet/Leaflet.draw) functionality.
 
+## Install
+
+```
+npm install react-leaflet-draw
+```
+
 ## Getting started
 
 It's important to wrap EditControl component into FeatureGroup component from react-leaflet.

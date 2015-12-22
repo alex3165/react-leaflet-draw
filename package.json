@@ -1,0 +1,58 @@
+{
+  "name": "react-leaflet-draw",
+  "version": "0.1.0",
+  "description": "React component for leaflet-draw",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean:lib": "rm -Rf ./lib",
+    "compile:lib": "babel src --out-dir lib",
+    "build:lib": "npm run clean:lib && npm run compile:lib",
+    "build:dist": "webpack src/index.js dist/react-leaflet.js & webpack -p src/index.js dist/react-leaflet.min.js",
+    "build": "npm run build:lib && npm run build:dist",
+    "example": "webpack-dev-server --config ./example/webpack.config.js",
+    "lint": "eslint ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alex3165/react-leaflet-draw.git"
+  },
+  "keywords": [
+    "react",
+    "leaflet",
+    "draw",
+    "editor"
+  ],
+  "author": "Alexandre Rieux",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alex3165/react-leaflet-draw/issues"
+  },
+  "homepage": "https://github.com/alex3165/react-leaflet-draw#readme",
+  "peerDependencies": {
+    "leaflet": "^0.7.0",
+    "react-leaflet": "^0.9.0",
+    "leaflet-draw": "^0.2.3",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-core": "^6.0.0",
+    "babel-eslint": "^4.1.5",
+    "babel-loader": "^6.0.0",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-0": "^6.1.18",
+    "eslint": "^1.9.0",
+    "eslint-plugin-react": "^3.8.0",
+    "leaflet": "^0.7.7",
+    "leaflet-draw": "^0.2.3",
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2",
+    "react-leaflet": "^0.9.0",
+    "react-transform-hmr": "^1.0.1",
+    "webpack": "^1.12.4",
+    "webpack-dev-server": "^1.12.1"
+  }
+}

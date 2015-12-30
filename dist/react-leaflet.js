@@ -114,12 +114,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var layerGroup = _props.layerGroup;
 	      var onEdit = _props.onEdit;
 	      var map = _props.map;
+	      var draw = _props.draw;
+	      var position = _props.position;
 
-	      this.leafletElement = new L.Control.Draw(Object.assign({}, {
+	      var options = {
 	        edit: {
 	          featureGroup: layerGroup
 	        }
-	      }, this.props));
+	      };
+
+	      if (draw) options.draw = draw;
+	      if (position) options.position = position;
+
+	      this.leafletElement = new L.Control.Draw(options);
 
 	      map.on('draw:created', function (e) {
 	        layerGroup.addLayer(e.layer);
@@ -135,7 +142,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	EditControl.propTypes = {
 	  onCreate: _react.PropTypes.func,
-	  onEdit: _react.PropTypes.func
+	  onEdit: _react.PropTypes.func,
+	  draw: _react.PropTypes.object,
+	  position: _react.PropTypes.string
 	};
 	exports.default = EditControl;
 

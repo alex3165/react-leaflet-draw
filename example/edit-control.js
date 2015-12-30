@@ -8,6 +8,10 @@ export default class EditControlExample extends Component {
     console.log("Path edited !");
   }
 
+  _onCreate(e) {
+    console.log("Path created");
+  }
+
   render() {
     return (
       <Map center={[51.505, -0.09]} zoom={13} zoomControl={false}>
@@ -19,7 +23,9 @@ export default class EditControlExample extends Component {
           subdomains={["a", "b", "c", "d"]}
         />
         <FeatureGroup>
-            <EditControl position='topright' onEdit={this._onEditPath} />
+            <EditControl position='topright' onEdit={this._onEditPath} onCreate={this._onCreate} draw={{
+              rectangle: false
+            }}/>
             <Circle center={[51.51, -0.06]} radius={200} />
         </FeatureGroup>
       </Map>

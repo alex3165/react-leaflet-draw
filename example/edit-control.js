@@ -9,7 +9,11 @@ export default class EditControlExample extends Component {
   }
 
   _onCreate(e) {
-    console.log("Path created");
+    console.log("Path created !");
+  }
+
+  _onDeleted(e) {
+    console.log('Path deleted !')
   }
 
   render() {
@@ -23,9 +27,15 @@ export default class EditControlExample extends Component {
           subdomains={["a", "b", "c", "d"]}
         />
         <FeatureGroup>
-            <EditControl position='topright' onEdit={this._onEditPath} onCreate={this._onCreate} draw={{
-              rectangle: false
-            }}/>
+            <EditControl
+              position='topright'
+              onEdited={this._onEditPath}
+              onCreated={this._onCreate}
+              onDeleted={this._onDeleted}
+              draw={{
+                rectangle: false
+              }}
+            />
             <Circle center={[51.51, -0.06]} radius={200} />
         </FeatureGroup>
       </Map>

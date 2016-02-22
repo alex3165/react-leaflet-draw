@@ -36,8 +36,7 @@
     "leaflet": "^0.7.0",
     "react-leaflet": "^0.9.0",
     "leaflet-draw": "^0.2.3",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": "^0.14.0"
   },
   "devDependencies": {
     "babel-cli": "^6.3.17",
@@ -51,10 +50,9 @@
     "eslint-plugin-react": "^3.8.0",
     "leaflet": "^0.7.7",
     "leaflet-draw": "^0.2.3",
-    "react": "^0.14.2",
-    "react-dom": "^0.14.2",
-    "react-leaflet": "^0.9.0",
-    "react-transform-hmr": "^1.0.1",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-leaflet": "^0.10.0",
     "webpack": "^1.12.4",
     "webpack-dev-server": "^1.12.1"
   }

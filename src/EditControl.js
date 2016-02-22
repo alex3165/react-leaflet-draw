@@ -5,20 +5,32 @@ import { MapControl } from 'react-leaflet';
 
 export default class EditControl extends MapControl {
   static propTypes = {
-    onCreate: PropTypes.func,
-    onEdit: PropTypes.func,
+    onCreated: PropTypes.func,
+    onEdited: PropTypes.func,
+    onDeleted: PropTypes.func,
     draw: PropTypes.object,
     position: PropTypes.string
   };
 
+  _checkDeprecated() {
+    if(typeof this.props.onEdit === 'function') {
+      console.error('onEdit is not a props anymore, use onEdited instead');
+    }
+    if(typeof this.props.onCreate === 'function') {
+      console.error('onCreate is not a props anymore, use onEdited instead');
+    }
+  }
+
   componentWillMount() {
-    const {onCreate, layerGroup, onEdit, map, draw, position} = this.props;
+    const {onCreated, onDeleted, onEdited, layerGroup, map, draw, position} = this.props;
 
     let options = {
       edit: {
           featureGroup: layerGroup,
       },
     };
+
+    this._checkDeprecated();
 
     if(draw) options.draw = draw;
     if(position) options.position = position;
@@ -27,9 +39,10 @@ export default class EditControl extends MapControl {
 
     map.on('draw:created', (e) => {
         layerGroup.addLayer(e.layer);
-        onCreate && onCreate.call(null, e);
+        onCreated && onCreated.call(null, e);
     });
 
-    map.on('draw:edited', onEdit);
+    map.on('draw:edited', onEdited);
+    map.on('draw:deleted', onDeleted);
   }
 }

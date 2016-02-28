@@ -22,7 +22,7 @@ export default class EditControl extends MapControl {
   }
 
   componentWillMount() {
-    const {onCreated, onDeleted, onEdited, layerGroup, map, draw, position} = this.props;
+    const {onCreated, onDeleted, onMounted, onEdited, layerGroup, map, draw, position} = this.props;
 
     let options = {
       edit: {
@@ -36,6 +36,10 @@ export default class EditControl extends MapControl {
     if(position) options.position = position;
 
     this.leafletElement = new L.Control.Draw(options);
+
+    if(typeof onMounted === "function") {
+      onMounted(this.leafletElement);
+    }
 
     map.on('draw:created', (e) => {
         layerGroup.addLayer(e.layer);

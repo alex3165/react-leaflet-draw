@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Map, TileLayer, Circle, FeatureGroup } from 'react-leaflet';
 import { EditControl } from "../src"
 
+let polyline;
+
 export default class EditControlExample extends Component {
 
   _onEditPath(e) {
@@ -9,11 +11,20 @@ export default class EditControlExample extends Component {
   }
 
   _onCreate(e) {
+    polyline = e.layer;
+    // To edit this polyline call : polyline.handler.enable()
     console.log("Path created !");
   }
 
   _onDeleted(e) {
     console.log('Path deleted !')
+  }
+
+  _mounted(drawControl) {
+    // this is crufty check : https://github.com/Leaflet/Leaflet.draw/issues/53
+    setTimeout(() => {
+      console.log("Draw controls: ", drawControl._toolbars["18"]._modes.circle.handler.enable());
+    }, 500)
   }
 
   render() {
@@ -32,6 +43,7 @@ export default class EditControlExample extends Component {
               onEdited={this._onEditPath}
               onCreated={this._onCreate}
               onDeleted={this._onDeleted}
+              onMounted={this._mounted}
               draw={{
                 rectangle: false
               }}

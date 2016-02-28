@@ -122,6 +122,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props = this.props;
 	      var onCreated = _props.onCreated;
 	      var onDeleted = _props.onDeleted;
+	      var onMounted = _props.onMounted;
 	      var onEdited = _props.onEdited;
 	      var layerGroup = _props.layerGroup;
 	      var map = _props.map;
@@ -141,6 +142,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (position) options.position = position;
 
 	      this.leafletElement = new L.Control.Draw(options);
+
+	      if (typeof onMounted === "function") {
+	        onMounted(this.leafletElement);
+	      }
 
 	      map.on('draw:created', function (e) {
 	        layerGroup.addLayer(e.layer);

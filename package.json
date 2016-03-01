@@ -11,7 +11,6 @@
     "build:dist": "webpack src/index.js dist/react-leaflet-draw.js & webpack -p src/index.js dist/react-leaflet-draw.min.js",
     "build": "npm run build:lib && npm run build:dist",
     "example": "webpack-dev-server --config ./example/webpack.config.js",
-    "preinstall": "npm run build",
     "lint": "eslint ./src",
     "release:major": "npm version major && git push --follow-tags",
     "release:minor": "npm version minor && git push --follow-tags",

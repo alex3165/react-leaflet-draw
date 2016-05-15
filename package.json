@@ -1,6 +1,6 @@
 {
   "name": "react-leaflet-draw",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "React component for leaflet-draw",
   "main": "dist/react-leaflet-draw.js",
   "scripts": {

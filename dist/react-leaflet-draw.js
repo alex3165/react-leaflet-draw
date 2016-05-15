@@ -149,8 +149,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_reactLeaflet.MapControl);
 
 	EditControl.propTypes = {
-	  layerContainer: _react.PropTypes.object.isRequired,
-	  map: _react.PropTypes.object.isRequired,
 	  onCreated: _react.PropTypes.func,
 	  onEdited: _react.PropTypes.func,
 	  onDeleted: _react.PropTypes.func,

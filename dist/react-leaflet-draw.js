@@ -107,16 +107,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  _createClass(EditControl, [{
-	    key: '_checkDeprecated',
-	    value: function _checkDeprecated() {
-	      if (typeof this.props.onEdit === 'function') {
-	        console.error('onEdit is not a props anymore, use onEdited instead');
-	      }
-	      if (typeof this.props.onCreate === 'function') {
-	        console.error('onCreate is not a props anymore, use onEdited instead');
-	      }
-	    }
-	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      var _props = this.props;
@@ -124,7 +114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var onDeleted = _props.onDeleted;
 	      var onMounted = _props.onMounted;
 	      var onEdited = _props.onEdited;
-	      var layerGroup = _props.layerGroup;
+	      var layerContainer = _props.layerContainer;
 	      var map = _props.map;
 	      var draw = _props.draw;
 	      var position = _props.position;
@@ -132,11 +122,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var options = {
 	        edit: {
-	          featureGroup: layerGroup
+	          featureGroup: layerContainer
 	        }
 	      };
-
-	      this._checkDeprecated();
 
 	      if (draw) options.draw = draw;
 	      if (position) options.position = position;
@@ -148,7 +136,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      map.on('draw:created', function (e) {
-	        layerGroup.addLayer(e.layer);
+	        layerContainer.addLayer(e.layer);
 	        onCreated && onCreated.call(null, e);
 	      });
 
@@ -161,9 +149,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_reactLeaflet.MapControl);
 
 	EditControl.propTypes = {
+	  layerContainer: _react.PropTypes.object.isRequired,
+	  map: _react.PropTypes.object.isRequired,
 	  onCreated: _react.PropTypes.func,
 	  onEdited: _react.PropTypes.func,
 	  onDeleted: _react.PropTypes.func,
+	  onMounted: _react.PropTypes.func,
 	  draw: _react.PropTypes.object,
 	  position: _react.PropTypes.string
 	};

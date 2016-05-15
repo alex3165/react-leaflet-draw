@@ -5,8 +5,6 @@ import { MapControl } from 'react-leaflet';
 
 export default class EditControl extends MapControl {
   static propTypes = {
-    layerContainer: PropTypes.object.isRequired,
-    map: PropTypes.object.isRequired,
     onCreated: PropTypes.func,
     onEdited: PropTypes.func,
     onDeleted: PropTypes.func,

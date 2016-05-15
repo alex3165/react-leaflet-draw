@@ -21,10 +21,7 @@ export default class EditControlExample extends Component {
   }
 
   _mounted(drawControl) {
-    // this is crufty check : https://github.com/Leaflet/Leaflet.draw/issues/53
-    setTimeout(() => {
-      console.log("Draw controls: ", drawControl._toolbars["18"]._modes.circle.handler.enable());
-    }, 500)
+
   }
 
   render() {

@@ -34,7 +34,7 @@
   "homepage": "https://github.com/alex3165/react-leaflet-draw#readme",
   "peerDependencies": {
     "leaflet": "^0.7.7",
-    "react-leaflet": "^0.11.5",
+    "react-leaflet": "^0.12.1",
     "leaflet-draw": "^0.3.0",
     "react": "^15.0.2"
   },
@@ -55,5 +55,8 @@
     "react-leaflet": "^0.11.5",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "react-leaflet": "^0.12.1"
   }
 }

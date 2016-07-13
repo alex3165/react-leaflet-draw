@@ -1,9 +1,9 @@
 import { PropTypes } from 'react';
 import Draw from 'leaflet-draw'; // eslint-disable-line
 
-import { MapControl } from 'react-leaflet';
+import { LayersControl } from 'react-leaflet';
 
-export default class EditControl extends MapControl {
+export default class EditControl extends LayersControl {
   static propTypes = {
     onCreated: PropTypes.func,
     onEdited: PropTypes.func,
@@ -19,11 +19,11 @@ export default class EditControl extends MapControl {
       onDeleted,
       onMounted,
       onEdited,
-      layerContainer,
-      map,
       draw,
       position
     } = this.props;
+
+    const { map, layerContainer } = this.context;
 
     let options = {
       edit: {

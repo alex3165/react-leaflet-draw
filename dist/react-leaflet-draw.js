@@ -97,8 +97,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // eslint-disable-line
 
-	var EditControl = function (_MapControl) {
-	  _inherits(EditControl, _MapControl);
+	var EditControl = function (_LayersControl) {
+	  _inherits(EditControl, _LayersControl);
 
 	  function EditControl() {
 	    _classCallCheck(this, EditControl);
@@ -114,10 +114,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var onDeleted = _props.onDeleted;
 	      var onMounted = _props.onMounted;
 	      var onEdited = _props.onEdited;
-	      var layerContainer = _props.layerContainer;
-	      var map = _props.map;
 	      var draw = _props.draw;
 	      var position = _props.position;
+	      var _context = this.context;
+	      var map = _context.map;
+	      var layerContainer = _context.layerContainer;
 
 
 	      var options = {
@@ -146,7 +147,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }]);
 
 	  return EditControl;
-	}(_reactLeaflet.MapControl);
+	}(_reactLeaflet.LayersControl);
 
 	EditControl.propTypes = {
 	  onCreated: _react.PropTypes.func,

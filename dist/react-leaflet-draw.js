@@ -143,7 +143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var onEdited = _props.onEdited;
 
 
-	      this.updateDrawElement();
+	      this.updateDrawControls();
 
 	      var map = this.context.map;
 
@@ -170,7 +170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return;
 	      }
 
-	      this.updateDrawElement(nextProps);
+	      this.updateDrawControls(nextProps);
 	    }
 	  }]);
 

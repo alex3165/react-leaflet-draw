@@ -42,7 +42,7 @@ export default class EditControl extends LayersControl {
       onEdited,
     } = this.props;
 
-    this.updateDrawElement();
+    this.updateDrawControls();
 
     const { map } = this.context;
 
@@ -65,6 +65,6 @@ export default class EditControl extends LayersControl {
 
     if(drawsEqual && positionsEqual) { return; }
 
-    this.updateDrawElement(nextProps);
+    this.updateDrawControls(nextProps);
   }
 }

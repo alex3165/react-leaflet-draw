@@ -1,5 +1,6 @@
 import { PropTypes } from 'react';
 import Draw from 'leaflet-draw'; // eslint-disable-line
+import isEqual from 'lodash.isequal';
 
 import { LayersControl } from 'react-leaflet';
 
@@ -47,5 +48,14 @@ export default class EditControl extends LayersControl {
 
     map.on('draw:edited', onEdited);
     map.on('draw:deleted', onDeleted);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const lastDraw = this.props.draw;
+    const nextDraw = nextProps.draw;
+
+    if(isEqual(lastDraw, nextDraw)) { return; }
+
+    this.leafletElement.setDrawingOptions(nextDraw);
   }
 }

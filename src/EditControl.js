@@ -19,7 +19,7 @@ export default class EditControl extends LayersControl {
     this.updateDrawControls = this.updateDrawControls.bind(this);
   }
 
-  updateDrawControls(props = this.props) {
+  updateDrawControls() {
     const { layerContainer } = this.context;
     const { draw, position } = props;
     const options = {
@@ -59,12 +59,13 @@ export default class EditControl extends LayersControl {
     map.on('draw:deleted', onDeleted);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const drawsEqual = isEqual(this.props.draw, nextProps.draw);
-    const positionsEqual = isEqual(this.props.position, nextProps.position);
+  componentDidUpdate(prevProps) {
+    const drawsEqual = isEqual(this.props.draw, prevProps.draw);
+    const positionsEqual = isEqual(this.props.position, prevProps.position);
 
     if(drawsEqual && positionsEqual) { return; }
 
-    this.updateDrawControls(nextProps);
+    super.componentDidUpdate(prevProps);
+    this.updateDrawControls();
   }
 }

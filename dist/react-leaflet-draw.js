@@ -81,6 +81,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
 	var _react = __webpack_require__(2);
 
 	var _leafletDraw = __webpack_require__(3);
@@ -117,10 +119,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(EditControl, [{
 	    key: 'updateDrawControls',
 	    value: function updateDrawControls() {
-	      var props = arguments.length <= 0 || arguments[0] === undefined ? this.props : arguments[0];
 	      var layerContainer = this.context.layerContainer;
-	      var draw = props.draw;
-	      var position = props.position;
+	      var _props = props;
+	      var draw = _props.draw;
+	      var position = _props.position;
 
 	      var options = {
 	        edit: {
@@ -136,11 +138,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      var _props = this.props;
-	      var onCreated = _props.onCreated;
-	      var onDeleted = _props.onDeleted;
-	      var onMounted = _props.onMounted;
-	      var onEdited = _props.onEdited;
+	      var _props2 = this.props;
+	      var onCreated = _props2.onCreated;
+	      var onDeleted = _props2.onDeleted;
+	      var onMounted = _props2.onMounted;
+	      var onEdited = _props2.onEdited;
 
 
 	      this.updateDrawControls();
@@ -161,16 +163,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      map.on('draw:deleted', onDeleted);
 	    }
 	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      var drawsEqual = (0, _lodash2.default)(this.props.draw, nextProps.draw);
-	      var positionsEqual = (0, _lodash2.default)(this.props.position, nextProps.position);
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps) {
+	      var drawsEqual = (0, _lodash2.default)(this.props.draw, prevProps.draw);
+	      var positionsEqual = (0, _lodash2.default)(this.props.position, prevProps.position);
 
 	      if (drawsEqual && positionsEqual) {
 	        return;
 	      }
 
-	      this.updateDrawControls(nextProps);
+	      _get(Object.getPrototypeOf(EditControl.prototype), 'componentDidUpdate', this).call(this, prevProps);
+	      this.updateDrawControls();
 	    }
 	  }]);
 

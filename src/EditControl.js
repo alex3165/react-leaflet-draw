@@ -14,19 +14,15 @@ export default class EditControl extends LayersControl {
     position: PropTypes.string
   };
 
-  componentWillMount() {
-    const {
-      onCreated,
-      onDeleted,
-      onMounted,
-      onEdited,
-      draw,
-      position
-    } = this.props;
+  constructor(props, context) {
+    super(props, context);
+    this.updateDrawControls = this.updateDrawControls.bind(this);
+  }
 
-    const { map, layerContainer } = this.context;
-
-    let options = {
+  updateDrawElement(props = this.props) {
+    const { layerContainer } = this.context;
+    const { draw, position } = props;
+    const options = {
       edit: {
         featureGroup: layerContainer
       }
@@ -36,6 +32,19 @@ export default class EditControl extends LayersControl {
     if(position) options.position = position;
 
     this.leafletElement = new L.Control.Draw(options);
+  }
+
+  componentWillMount() {
+    const {
+      onCreated,
+      onDeleted,
+      onMounted,
+      onEdited,
+    } = this.props;
+
+    this.updateDrawElement();
+
+    const { map } = this.context;
 
     if(typeof onMounted === "function") {
       onMounted(this.leafletElement);
@@ -51,12 +60,11 @@ export default class EditControl extends LayersControl {
   }
 
   componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(nextProps);
-    const lastDraw = this.props.draw;
-    const nextDraw = nextProps.draw;
+    const drawsEqual = isEqual(this.props.draw, nextProps.draw);
+    const positionsEqual = isEqual(this.props.position, nextProps.position);
 
-    if(isEqual(lastDraw, nextDraw)) { return; }
+    if(drawsEqual && positionsEqual) { return; }
 
-    this.leafletElement.setDrawingOptions(nextDraw);
+    this.updateDrawElement(nextProps);
   }
 }

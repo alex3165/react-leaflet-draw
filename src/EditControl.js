@@ -60,12 +60,10 @@ export default class EditControl extends LayersControl {
   }
 
   componentDidUpdate(prevProps) {
+    // super updates positions if thats all that changed so call this first
     super.componentDidUpdate(prevProps);
 
-    const drawsEqual = isEqual(this.props.draw, prevProps.draw);
-    const positionsEqual = isEqual(this.props.position, prevProps.position);
-
-    if(drawsEqual && positionsEqual) { return; }
+    if(isEqual(this.props.draw, prevProps.draw)) { return; }
 
     const { map } = this.context;
 

@@ -167,12 +167,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate(prevProps) {
+	      // super updates positions if thats all that changed so call this first
 	      _get(Object.getPrototypeOf(EditControl.prototype), 'componentDidUpdate', this).call(this, prevProps);
 
-	      var drawsEqual = (0, _lodash2.default)(this.props.draw, prevProps.draw);
-	      var positionsEqual = (0, _lodash2.default)(this.props.position, prevProps.position);
-
-	      if (drawsEqual && positionsEqual) {
+	      if ((0, _lodash2.default)(this.props.draw, prevProps.draw)) {
 	        return;
 	      }
 

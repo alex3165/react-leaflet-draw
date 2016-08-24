@@ -51,7 +51,7 @@ export default class EditControl extends LayersControl {
   }
 
   componentWillReceiveProps(nextProps) {
-    super.componentWillRecieveProps(nextProps);
+    super.componentWillReceiveProps(nextProps);
     const lastDraw = this.props.draw;
     const nextDraw = nextProps.draw;
 

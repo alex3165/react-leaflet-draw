@@ -154,7 +154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      _get(Object.getPrototypeOf(EditControl.prototype), 'componentWillRecieveProps', this).call(this, nextProps);
+	      _get(Object.getPrototypeOf(EditControl.prototype), 'componentWillReceiveProps', this).call(this, nextProps);
 	      var lastDraw = this.props.draw;
 	      var nextDraw = nextProps.draw;
 

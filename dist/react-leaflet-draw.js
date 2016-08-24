@@ -115,8 +115,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  _createClass(EditControl, [{
-	    key: 'updateDrawElement',
-	    value: function updateDrawElement() {
+	    key: 'updateDrawControls',
+	    value: function updateDrawControls() {
 	      var props = arguments.length <= 0 || arguments[0] === undefined ? this.props : arguments[0];
 	      var layerContainer = this.context.layerContainer;
 	      var draw = props.draw;

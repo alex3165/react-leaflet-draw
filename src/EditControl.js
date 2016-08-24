@@ -19,7 +19,7 @@ export default class EditControl extends LayersControl {
     this.updateDrawControls = this.updateDrawControls.bind(this);
   }
 
-  updateDrawElement(props = this.props) {
+  updateDrawControls(props = this.props) {
     const { layerContainer } = this.context;
     const { draw, position } = props;
     const options = {

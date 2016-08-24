@@ -21,7 +21,7 @@ export default class EditControl extends LayersControl {
 
   updateDrawControls() {
     const { layerContainer } = this.context;
-    const { draw, position } = props;
+    const { draw, position } = this.props;
     const options = {
       edit: {
         featureGroup: layerContainer

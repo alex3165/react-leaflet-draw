@@ -120,7 +120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'updateDrawControls',
 	    value: function updateDrawControls() {
 	      var layerContainer = this.context.layerContainer;
-	      var _props = props;
+	      var _props = this.props;
 	      var draw = _props.draw;
 	      var position = _props.position;
 

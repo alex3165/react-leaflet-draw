@@ -44,7 +44,7 @@ export default class EditControl extends LayersControl {
 
     this.updateDrawControls();
 
-    const { map } = this.context;
+    const { map, layerContainer } = this.context;
 
     if(typeof onMounted === "function") {
       onMounted(this.leafletElement);
@@ -60,12 +60,18 @@ export default class EditControl extends LayersControl {
   }
 
   componentDidUpdate(prevProps) {
+    super.componentDidUpdate(prevProps);
+
     const drawsEqual = isEqual(this.props.draw, prevProps.draw);
     const positionsEqual = isEqual(this.props.position, prevProps.position);
 
     if(drawsEqual && positionsEqual) { return; }
 
-    super.componentDidUpdate(prevProps);
+    const { map } = this.context;
+
+    this.leafletElement.removeFrom(map);
     this.updateDrawControls();
+    this.leafletElement.addTo(map);
+
   }
 }

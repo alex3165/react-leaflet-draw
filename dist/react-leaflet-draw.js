@@ -147,7 +147,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this.updateDrawControls();
 
-	      var map = this.context.map;
+	      var _context = this.context;
+	      var map = _context.map;
+	      var layerContainer = _context.layerContainer;
 
 
 	      if (typeof onMounted === "function") {
@@ -165,6 +167,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate(prevProps) {
+	      _get(Object.getPrototypeOf(EditControl.prototype), 'componentDidUpdate', this).call(this, prevProps);
+
 	      var drawsEqual = (0, _lodash2.default)(this.props.draw, prevProps.draw);
 	      var positionsEqual = (0, _lodash2.default)(this.props.position, prevProps.position);
 
@@ -172,8 +176,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return;
 	      }
 
-	      _get(Object.getPrototypeOf(EditControl.prototype), 'componentDidUpdate', this).call(this, prevProps);
+	      var map = this.context.map;
+
+
+	      this.leafletElement.removeFrom(map);
 	      this.updateDrawControls();
+	      this.leafletElement.addTo(map);
 	    }
 	  }]);
 

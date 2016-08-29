@@ -107,22 +107,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditControl = function (_LayersControl) {
 	  _inherits(EditControl, _LayersControl);
 
-	  function EditControl(props, context) {
+	  function EditControl() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
 	    _classCallCheck(this, EditControl);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(EditControl).call(this, props, context));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-	    _this.updateDrawControls = _this.updateDrawControls.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(EditControl, [{
-	    key: 'updateDrawControls',
-	    value: function updateDrawControls() {
-	      var layerContainer = this.context.layerContainer;
-	      var _props = this.props;
-	      var draw = _props.draw;
-	      var position = _props.position;
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(EditControl)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.updateDrawControls = function () {
+	      var layerContainer = _this.context.layerContainer;
+	      var _this$props = _this.props;
+	      var draw = _this$props.draw;
+	      var position = _this$props.position;
 
 	      var options = {
 	        edit: {
@@ -130,19 +130,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      };
 
-	      if (draw) options.draw = draw;
-	      if (position) options.position = position;
+	      if (draw) {
+	        options.draw = draw;
+	      }
 
-	      this.leafletElement = new L.Control.Draw(options);
-	    }
-	  }, {
+	      if (position) {
+	        options.position = position;
+	      }
+
+	      _this.leafletElement = new L.Control.Draw(options); // eslint-disable-line
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  _createClass(EditControl, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      var _props2 = this.props;
-	      var onCreated = _props2.onCreated;
-	      var onDeleted = _props2.onDeleted;
-	      var onMounted = _props2.onMounted;
-	      var onEdited = _props2.onEdited;
+	      var _props = this.props;
+	      var onCreated = _props.onCreated;
+	      var onDeleted = _props.onDeleted;
+	      var onMounted = _props.onMounted;
+	      var onEdited = _props.onEdited;
 
 
 	      this.updateDrawControls();
@@ -152,7 +159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var layerContainer = _context.layerContainer;
 
 
-	      if (typeof onMounted === "function") {
+	      if (typeof onMounted === 'function') {
 	        onMounted(this.leafletElement);
 	      }
 
@@ -170,8 +177,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // super updates positions if thats all that changed so call this first
 	      _get(Object.getPrototypeOf(EditControl.prototype), 'componentDidUpdate', this).call(this, prevProps);
 
-	      if ((0, _lodash2.default)(this.props.draw, prevProps.draw)) {
-	        return;
+	      if ((0, _lodash2.default)(this.props.draw, prevProps.draw) || this.props.position !== prevProps.position) {
+	        return false;
 	      }
 
 	      var map = this.context.map;
@@ -192,7 +199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  onDeleted: _react.PropTypes.func,
 	  onMounted: _react.PropTypes.func,
 	  draw: _react.PropTypes.object,
-	  position: _react.PropTypes.string
+	  position: _react.PropTypes.oneOf(['topright', 'topleft', 'bottomright', 'bottomleft'])
 	};
 	exports.default = EditControl;
 

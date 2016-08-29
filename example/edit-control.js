@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Circle, FeatureGroup } from 'react-leaflet';
-import { EditControl } from "../src"
+import { EditControl } from '../src';
 
 let polyline;
+const subs = [ 'a', 'b', 'c', 'd' ];
 
 export default class EditControlExample extends Component {
 
   _onEditPath(e) {
-    console.log("Path edited !");
+    console.log('Path edited !');
   }
 
   _onCreate(e) {
     polyline = e.layer;
     // To edit this polyline call : polyline.handler.enable()
-    console.log("Path created !");
+    console.log('Path created !');
   }
 
   _onDeleted(e) {
-    console.log('Path deleted !')
+    console.log('Path deleted !');
   }
 
   _mounted(drawControl) {
-
+    console.log('Component mounted !');
   }
 
   render() {
@@ -32,7 +33,7 @@ export default class EditControlExample extends Component {
           url="https://{s}.tiles.mapbox.com/v4/{mapId}/{z}/{x}/{y}.png?access_token={token}"
           mapId="mapbox.edf947b8"
           token="pk.eyJ1IjoiYWxleDMxNjUiLCJhIjoiYWZ2b0ctdyJ9.8hDqOD5GlLfBfIxjHaa0qQ"
-          subdomains={["a", "b", "c", "d"]}
+          subdomains={subs}
         />
         <FeatureGroup>
             <EditControl

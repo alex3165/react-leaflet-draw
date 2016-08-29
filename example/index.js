@@ -7,6 +7,6 @@ const example = (
     <h1>React-Leaflet-Draw example</h1>
     <EditControlExample/>
   </div>
-)
+);
 
 render(example, document.getElementById('app'));

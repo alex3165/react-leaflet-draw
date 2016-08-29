@@ -91,7 +91,7 @@
     "no-spaced-func": 1,
     "no-unneeded-ternary": 1,
     "one-var": [2, "never"],
-    "quotes": [2, "double"],
+    "quotes": [1, "single"],
     "quote-props": [2, "as-needed"],
     "semi-spacing": [2, {"before": false, "after": true}],
     "space-after-keywords": [2, "always"],

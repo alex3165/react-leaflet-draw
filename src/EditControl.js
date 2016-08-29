@@ -11,28 +11,13 @@ export default class EditControl extends LayersControl {
     onDeleted: PropTypes.func,
     onMounted: PropTypes.func,
     draw: PropTypes.object,
-    position: PropTypes.string
+    position: PropTypes.oneOf([
+      'topright',
+      'topleft',
+      'bottomright',
+      'bottomleft'
+    ])
   };
-
-  constructor(props, context) {
-    super(props, context);
-    this.updateDrawControls = this.updateDrawControls.bind(this);
-  }
-
-  updateDrawControls() {
-    const { layerContainer } = this.context;
-    const { draw, position } = this.props;
-    const options = {
-      edit: {
-        featureGroup: layerContainer
-      }
-    };
-
-    if(draw) options.draw = draw;
-    if(position) options.position = position;
-
-    this.leafletElement = new L.Control.Draw(options);
-  }
 
   componentWillMount() {
     const {
@@ -46,7 +31,7 @@ export default class EditControl extends LayersControl {
 
     const { map, layerContainer } = this.context;
 
-    if(typeof onMounted === "function") {
+    if (typeof onMounted === 'function') {
       onMounted(this.leafletElement);
     }
 
@@ -63,7 +48,9 @@ export default class EditControl extends LayersControl {
     // super updates positions if thats all that changed so call this first
     super.componentDidUpdate(prevProps);
 
-    if(isEqual(this.props.draw, prevProps.draw)) { return; }
+    if (isEqual(this.props.draw, prevProps.draw) || this.props.position !== prevProps.position) {
+      return false;
+    }
 
     const { map } = this.context;
 
@@ -72,4 +59,24 @@ export default class EditControl extends LayersControl {
     this.leafletElement.addTo(map);
 
   }
+
+  updateDrawControls = () => {
+    const { layerContainer } = this.context;
+    const { draw, position } = this.props;
+    const options = {
+      edit: {
+        featureGroup: layerContainer
+      }
+    };
+
+    if (draw) {
+      options.draw = draw;
+    }
+
+    if (position) {
+      options.position = position;
+    }
+
+    this.leafletElement = new L.Control.Draw(options); // eslint-disable-line
+  };
 }

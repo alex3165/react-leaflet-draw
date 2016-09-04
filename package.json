@@ -20,6 +20,11 @@
     "type": "git",
     "url": "git+ssh://git@github.com/alex3165/react-leaflet-draw.git"
   },
+  "files": [
+    "lib",
+    "dist",
+    "src"
+  ],
   "keywords": [
     "react",
     "leaflet",

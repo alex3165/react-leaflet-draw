@@ -148,8 +148,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props = this.props;
 	      var onCreated = _props.onCreated;
 	      var onDeleted = _props.onDeleted;
+	      var onDeleteStart = _props.onDeleteStart;
+	      var onDeleteStop = _props.onDeleteStop;
 	      var onMounted = _props.onMounted;
 	      var onEdited = _props.onEdited;
+	      var onEditStart = _props.onEditStart;
+	      var onEditStop = _props.onEditStop;
 
 
 	      this.updateDrawControls();
@@ -169,7 +173,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 
 	      map.on('draw:edited', onEdited);
+	      if (typeof onEditStart === 'function') {
+	        map.on('draw:editstart', onEditStart);
+	      }
+	      if (typeof onEditStop === 'function') {
+	        map.on('draw:editstop', onEditStop);
+	      }
+
 	      map.on('draw:deleted', onDeleted);
+	      if (typeof onDeleteStart === 'function') {
+	        map.on('draw:deletestart', onDeleteStart);
+	      }
+	      if (typeof onDeleteStop === 'function') {
+	        map.on('draw:deletestop', onDeleteStop);
+	      }
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -196,7 +213,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	EditControl.propTypes = {
 	  onCreated: _react.PropTypes.func,
 	  onEdited: _react.PropTypes.func,
+	  onEditStart: _react.PropTypes.func,
+	  onEditStop: _react.PropTypes.func,
 	  onDeleted: _react.PropTypes.func,
+	  onDeleteStart: _react.PropTypes.func,
+	  onDeleteStop: _react.PropTypes.func,
 	  onMounted: _react.PropTypes.func,
 	  draw: _react.PropTypes.object,
 	  position: _react.PropTypes.oneOf(['topright', 'topleft', 'bottomright', 'bottomleft'])

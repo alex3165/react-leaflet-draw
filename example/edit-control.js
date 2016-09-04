@@ -25,6 +25,22 @@ export default class EditControlExample extends Component {
     console.log('Component mounted !');
   }
 
+  _onEditStart() {
+    console.log('Edit is starting !');
+  }
+
+  _onEditStop() {
+    console.log('Edit is stopping !');
+  }
+
+  _onDeleteStart() {
+    console.log('Delete is starting !');
+  }
+
+  _onDeleteStop() {
+    console.log('Delete is stopping !');
+  }
+
   render() {
     return (
       <Map center={[51.505, -0.09]} zoom={13} zoomControl={false}>
@@ -42,6 +58,10 @@ export default class EditControlExample extends Component {
               onCreated={this._onCreate}
               onDeleted={this._onDeleted}
               onMounted={this._mounted}
+              onEditStart={this._onEditStart}
+              onEditStop={this._onEditStop}
+              onDeleteStart={this._onDeleteStart}
+              onDeleteStop={this._onDeleteStop}
               draw={{
                 rectangle: false
               }}

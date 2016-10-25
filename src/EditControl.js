@@ -79,6 +79,7 @@ export default class EditControl extends LayersControl {
     this.updateDrawControls();
     this.leafletElement.addTo(map);
 
+    return null;
   }
 
   updateDrawControls = () => {

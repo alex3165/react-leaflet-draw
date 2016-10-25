@@ -10,11 +10,11 @@
     "build:lib": "npm run clean:lib && npm run compile:lib",
     "build:dist": "webpack src/index.js dist/react-leaflet-draw.js & webpack -p src/index.js dist/react-leaflet-draw.min.js",
     "build": "npm run build:lib && npm run build:dist",
+    "prepublish": "npm run build",
+    "version": "npm run build",
+    "postversion": "git push && git push --tags",
     "example": "webpack-dev-server --config ./example/webpack.config.js",
-    "lint": "eslint ./src",
-    "release:major": "npm version major && git push --follow-tags",
-    "release:minor": "npm version minor && git push --follow-tags",
-    "release:patch": "npm version patch && git push --follow-tags"
+    "lint": "eslint ./src"
   },
   "repository": {
     "type": "git",

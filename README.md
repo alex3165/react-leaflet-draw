@@ -8,6 +8,15 @@ React component build on top of [React-Leaflet](https://github.com/PaulLeCam/rea
 npm install react-leaflet-draw
 ```
 
+## Disclaimer
+
+In order to be able to interact with an svg layer on the map you will need to enable every pointer events on it in your css :
+```
+svg {
+  pointer-events: auto;
+}
+```
+
 ## Getting started
 
 It's important to wrap EditControl component into FeatureGroup component from react-leaflet. The drawed elements will be append in this FeatureGroup layer and edit button will edit only items in this layer.

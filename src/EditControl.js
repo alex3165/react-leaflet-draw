@@ -75,7 +75,7 @@ export default class EditControl extends LayersControl {
 
     const { map } = this.context;
 
-    this.leafletElement.removeFrom(map);
+    this.leafletElement.remove(map);
     this.updateDrawControls();
     this.leafletElement.addTo(map);
 

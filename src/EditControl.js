@@ -39,7 +39,7 @@ export default class EditControl extends LayersControl {
   };
 
   componentWillMount() {
-    const { map, layerContainer } = this.context;
+    const { map } = this.context;
     const { onMounted } = this.props;
 
     this.updateDrawControls();

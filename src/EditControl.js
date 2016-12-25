@@ -4,15 +4,22 @@ import isEqual from 'lodash.isequal';
 
 import { LayersControl } from 'react-leaflet';
 
+const eventHandlers = {
+  onEdited: 'draw:edited',
+  onEditStart: 'draw:editstart',
+  onEditStop: 'draw:editstop',
+  onDeleted: 'draw:deleted',
+  onDeleteStart: 'draw:deletestart',
+  onDeleteStop: 'draw:deletestop',
+};
+
 export default class EditControl extends LayersControl {
   static propTypes = {
+    ...Object.keys(eventHandlers).reduce((acc, val) => {
+      acc[val] = PropTypes.func;
+      return acc;
+    }, {}),
     onCreated: PropTypes.func,
-    onEdited: PropTypes.func,
-    onEditStart: PropTypes.func,
-    onEditStop: PropTypes.func,
-    onDeleted: PropTypes.func,
-    onDeleteStart: PropTypes.func,
-    onDeleteStop: PropTypes.func,
     onMounted: PropTypes.func,
     draw: PropTypes.object,
     position: PropTypes.oneOf([
@@ -23,45 +30,41 @@ export default class EditControl extends LayersControl {
     ])
   };
 
+  onDrawCreate = (e) => {
+    const { onCreated } = this.props;
+    const { layerContainer } = this.context;
+
+    layerContainer.addLayer(e.layer);
+    onCreated && onCreated(e);
+  };
+
   componentWillMount() {
-    const {
-      onCreated,
-      onDeleted,
-      onDeleteStart,
-      onDeleteStop,
-      onMounted,
-      onEdited,
-      onEditStart,
-      onEditStop
-    } = this.props;
+    const { map, layerContainer } = this.context;
+    const { onMounted } = this.props;
 
     this.updateDrawControls();
 
-    const { map, layerContainer } = this.context;
+    onMounted && onMounted(this.leafletElement);
 
-    if (typeof onMounted === 'function') {
-      onMounted(this.leafletElement);
-    }
+    map.on('draw:created', this.onDrawCreate);
 
-    map.on('draw:created', (e) => {
-      layerContainer.addLayer(e.layer);
-      onCreated && onCreated.call(null, e);
-    });
+    for (const key in eventHandlers) {
+      if (this.props[key]) {
+        map.on(eventHandlers[key], this.props[key]);
+      }
+    }
+  }
 
-    map.on('draw:edited', onEdited);
-    if (typeof onEditStart === 'function') {
-      map.on('draw:editstart', onEditStart);
-    }
-    if (typeof onEditStop === 'function') {
-      map.on('draw:editstop', onEditStop);
-    }
+  componentWillUnmount() {
+    const { map } = this.context;
+    this.leafletElement.remove(map);
 
-    map.on('draw:deleted', onDeleted);
-    if (typeof onDeleteStart === 'function') {
-      map.on('draw:deletestart', onDeleteStart);
-    }
-    if (typeof onDeleteStop === 'function') {
-      map.on('draw:deletestop', onDeleteStop);
+    map.off('draw:created', this.onDrawCreate);
+
+    for (const key in eventHandlers) {
+      if (this.props[key]) {
+        map.off(eventHandlers[key], this.props[key]);
+      }
     }
   }
 

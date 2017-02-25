@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Circle, FeatureGroup } from 'react-leaflet';
 import { EditControl } from '../src';
+import config from './config.json';
 
 let polyline;
 const subs = [ 'a', 'b', 'c', 'd' ];
@@ -47,8 +48,8 @@ export default class EditControlExample extends Component {
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tiles.mapbox.com/v4/{mapId}/{z}/{x}/{y}.png?access_token={token}"
-          mapId="mapbox.edf947b8"
-          token="pk.eyJ1IjoiYWxleDMxNjUiLCJhIjoiYWZ2b0ctdyJ9.8hDqOD5GlLfBfIxjHaa0qQ"
+          mapId={config.mapId}
+          token={config.token}
           subdomains={subs}
         />
         <FeatureGroup>

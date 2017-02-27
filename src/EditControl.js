@@ -40,11 +40,8 @@ export default class EditControl extends LayersControl {
 
   componentWillMount() {
     const { map } = this.context;
-    const { onMounted } = this.props;
 
     this.updateDrawControls();
-
-    onMounted && onMounted(this.leafletElement);
 
     map.on('draw:created', this.onDrawCreate);
 
@@ -53,6 +50,12 @@ export default class EditControl extends LayersControl {
         map.on(eventHandlers[key], this.props[key]);
       }
     }
+  }
+
+  componentDidMount() {
+    const { onMounted } = this.props;
+    super.componentDidMount();
+    onMounted && onMounted(this.leafletElement);
   }
 
   componentWillUnmount() {

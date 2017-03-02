@@ -21,7 +21,19 @@ export default class EditControl extends LayersControl {
     }, {}),
     onCreated: PropTypes.func,
     onMounted: PropTypes.func,
-    draw: PropTypes.object,
+    draw: PropTypes.shape({
+      polyline: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+      polygon: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+      rectangle: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+      circle: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+      marker: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    }),
+    edit: PropTypes.shape({
+      edit: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+      remove: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+      poly: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+      allowIntersection: PropTypes.bool,
+    }),
     position: PropTypes.oneOf([
       'topright',
       'topleft',
@@ -90,9 +102,10 @@ export default class EditControl extends LayersControl {
 
   updateDrawControls = () => {
     const { layerContainer } = this.context;
-    const { draw, position } = this.props;
+    const { draw, edit, position } = this.props;
     const options = {
       edit: {
+        ...edit,
         featureGroup: layerContainer
       }
     };

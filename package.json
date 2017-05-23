@@ -39,9 +39,10 @@
   "homepage": "https://github.com/alex3165/react-leaflet-draw#readme",
   "peerDependencies": {
     "leaflet": "^1.0.3",
-    "react-leaflet": "^1.1.0",
+    "react-leaflet": "^1.1.6",
     "leaflet-draw": "^0.4.9",
-    "react": "^15.4.2"
+    "react": "^15.5.2",
+    "prop-types": "^15.5.2"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",

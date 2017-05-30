@@ -1,8 +1,9 @@
-import { PropTypes } from 'react';
+import { PropTypes } from 'prop-types';
 import Draw from 'leaflet-draw'; // eslint-disable-line
 import isEqual from 'lodash.isequal';
 
 import { LayersControl } from 'react-leaflet';
+import { Map } from 'leaflet';
 
 const eventHandlers = {
   onEdited: 'draw:edited',
@@ -40,6 +41,14 @@ export default class EditControl extends LayersControl {
       'bottomright',
       'bottomleft'
     ])
+  };
+
+  static contextTypes = {
+    map: PropTypes.instanceOf(Map),
+    layerContainer: PropTypes.shape({
+      addLayer: PropTypes.func.isRequired,
+      removeLayer: PropTypes.func.isRequired
+    })
   };
 
   onDrawCreate = (e) => {

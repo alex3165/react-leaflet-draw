@@ -41,6 +41,7 @@
     "leaflet": "^1.0.3",
     "react-leaflet": "^1.1.0",
     "leaflet-draw": "^0.4.9",
+    "prop-types": "^15.5.5",
     "react": "^15.4.2"
   },
   "devDependencies": {
@@ -57,6 +58,7 @@
     "leaflet": "^1.0.3",
     "leaflet-draw": "^0.4.9",
     "lodash.isequal": "^4.4.0",
+    "prop-types": "^15.5.10",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-leaflet": "^1.1.0",

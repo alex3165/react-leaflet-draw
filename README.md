@@ -70,6 +70,12 @@ You can pass more options on draw object, this informations can be found [here](
 |onEditStop      |function                    |hook to leaflet-draw's `draw:editstop` event          |
 |onDeleteStart   |function                    |hook to leaflet-draw's `draw:deletestart` event       |
 |onDeleteStop    |function                    |hook to leaflet-draw's `draw:deletestop` event        |
+|onDrawStart     |function                    |hook to leaflet-draw's `draw:drawstart` event         |
+|onDrawStop      |function                    |hook to leaflet-draw's `draw:drawstop` event          |
+|onDrawVertex    |function                    |hook to leaflet-draw's `draw:drawvertex` event        |
+|onEditMove      |function                    |hook to leaflet-draw's `draw:editmove` event          |
+|onEditResize    |function                    |hook to leaflet-draw's `draw:editresize` event          |
+|onEditVertex    |function                    |hook to leaflet-draw's `draw:editvertex` event          |
 
 #### Links to docs
 

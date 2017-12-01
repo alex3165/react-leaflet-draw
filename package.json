@@ -41,7 +41,7 @@
     "leaflet": "^1.0.3",
     "react-leaflet": "^1.1.6",
     "leaflet-draw": "^0.4.9",
-    "react": "^15.5.2",
+    "react": "^15.0.0 || ^16.0.0",
     "prop-types": "^15.5.2"
   },
   "devDependencies": {

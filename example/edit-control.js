@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Circle, FeatureGroup } from 'react-leaflet';
+import L from 'leaflet';
 import { EditControl } from '../src';
+
+// work around broken icons when using webpack, see https://github.com/PaulLeCam/react-leaflet/issues/255
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-icon.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-shadow.png',
+});
+
+//
 
 let polyline;
 

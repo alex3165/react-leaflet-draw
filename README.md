@@ -30,7 +30,7 @@ It's important to wrap EditControl component into FeatureGroup component from `r
 The elements you draw will be added to this FeatureGroup layer, when you hit edit button only items in this layer will be edited.
 
 ```jsx
-import { Map, TileLayer, FeatureGroup } from 'react-leaflet';
+import { Map, TileLayer, FeatureGroup, Circle } from 'react-leaflet';
 import { EditControl } from "react-leaflet-draw"
 
 const Component = () => (

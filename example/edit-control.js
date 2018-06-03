@@ -25,13 +25,13 @@ export default class EditControlExample extends Component {
     let numEdited = 0;
     e.layers.eachLayer( (layer) => {
       numEdited += 1;
-    })
+    });
     console.log(`_onEdited: edited ${numEdited} layers`, e);
 
     this._onChange();
   }
 
-  _onCreated(e) {
+  _onCreated = (e) => {
     let type = e.layerType;
     let layer = e.layer;
     if (type === 'marker') {
@@ -47,11 +47,11 @@ export default class EditControlExample extends Component {
   }
 
   _onDeleted = (e) => {
-    
+
     let numDeleted = 0;
     e.layers.eachLayer( (layer) => {
       numDeleted += 1;
-    })
+    });
     console.log(`onDeleted: removed ${numDeleted} layers`, e);
 
     this._onChange();
@@ -112,7 +112,7 @@ export default class EditControlExample extends Component {
 
     let leafletGeoJSON = new L.GeoJSON(getGeoJson());
     let leafletFG = reactFGref.leafletElement;
-    
+
     leafletGeoJSON.eachLayer( (layer) => {
       leafletFG.addLayer(layer);
     });

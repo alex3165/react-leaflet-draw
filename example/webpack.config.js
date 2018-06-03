@@ -2,21 +2,17 @@
 var webpack = require('webpack');
 
 module.exports = {
-  debug: true,
+  mode: 'development',
   devtool: 'source-map',
   entry: {
     app: __dirname + '/index.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
+        loaders: ["babel-loader"]
       }
     ]
   },
@@ -26,16 +22,9 @@ module.exports = {
     publicPath: 'http://localhost:8000/build'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': '"development"'
-      }
-    }),
-    new webpack.NoErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
-    colors: true,
     contentBase: __dirname,
     historyApiFallback: true,
     hot: true,

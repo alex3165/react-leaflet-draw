@@ -1,5 +1,8 @@
 /* eslint-disable */
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
+  mode: 'production',
   output: {
     library: 'ReactLeaflet',
     libraryTarget: 'umd'
@@ -44,6 +47,13 @@ module.exports = {
         exclude: /node_modules/,
         loaders: ["babel-loader"]
       }
+    ]
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        include: /\.min\.js$/
+      })
     ]
   }
 };

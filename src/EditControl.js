@@ -2,8 +2,8 @@ import { PropTypes } from 'prop-types';
 import Draw from 'leaflet-draw'; // eslint-disable-line
 import isEqual from 'lodash.isequal';
 
-import { LayersControl } from 'react-leaflet';
-import { Map } from 'leaflet';
+import { MapControl, withLeaflet } from 'react-leaflet';
+import leaflet, { Map, Control } from 'leaflet';
 
 const eventHandlers = {
   onEdited: 'draw:edited',
@@ -20,7 +20,7 @@ const eventHandlers = {
   onDeleteStop: 'draw:deletestop',
 };
 
-export default class EditControl extends LayersControl {
+class EditControl extends MapControl {
   static propTypes = {
     ...Object.keys(eventHandlers).reduce((acc, val) => {
       acc[val] = PropTypes.func;
@@ -46,50 +46,52 @@ export default class EditControl extends LayersControl {
       'topleft',
       'bottomright',
       'bottomleft'
-    ])
-  };
-
-  static contextTypes = {
-    map: PropTypes.instanceOf(Map),
-    layerContainer: PropTypes.shape({
-      addLayer: PropTypes.func.isRequired,
-      removeLayer: PropTypes.func.isRequired
+    ]),
+    leaflet: PropTypes.shape({
+      map: PropTypes.instanceOf(Map),
+      layerContainer: PropTypes.shape({
+        addLayer: PropTypes.func.isRequired,
+        removeLayer: PropTypes.func.isRequired
+      })
     })
   };
 
-  onDrawCreate = (e) => {
-    const { onCreated } = this.props;
-    const { layerContainer } = this.context;
+  createLeafletElement(props) {
+    const { map } = props.leaflet;
 
-    layerContainer.addLayer(e.layer);
-    onCreated && onCreated(e);
-  };
-
-  componentWillMount() {
-    const { map } = this.context;
-
-    this.updateDrawControls();
-
-    map.on('draw:created', this.onDrawCreate);
+    let drawElement = createDrawElement(props);
 
     for (const key in eventHandlers) {
       if (this.props[key]) {
         map.on(eventHandlers[key], this.props[key]);
       }
     }
+    return drawElement;
   }
 
+  onDrawCreate = (e) => {
+    const { onCreated } = this.props;
+    const { layerContainer } = this.props.leaflet;
+
+    layerContainer.addLayer(e.layer);
+    onCreated && onCreated(e);
+  };
+
   componentDidMount() {
-    const { onMounted } = this.props;
     super.componentDidMount();
+    const { map } = this.props.leaflet;
+    const { onMounted } = this.props;
+
+    map.on(leaflet.Draw.Event.CREATED, this.onDrawCreate);
+
     onMounted && onMounted(this.leafletElement);
   }
 
   componentWillUnmount() {
-    const { map } = this.context;
-    this.leafletElement.remove(map);
+    super.componentWillUnmount();
+    const { map } = this.props.leaflet;
 
-    map.off('draw:created', this.onDrawCreate);
+    map.off(leaflet.Draw.Event.CREATED, this.onDrawCreate);
 
     for (const key in eventHandlers) {
       if (this.props[key]) {
@@ -106,7 +108,7 @@ export default class EditControl extends LayersControl {
       return false;
     }
 
-    const { map } = this.context;
+    const { map } = this.props.leaflet;
 
     this.leafletElement.remove(map);
     this.updateDrawControls();
@@ -116,23 +118,29 @@ export default class EditControl extends LayersControl {
   }
 
   updateDrawControls = () => {
-    const { layerContainer } = this.context;
-    const { draw, edit, position } = this.props;
-    const options = {
-      edit: {
-        ...edit,
-        featureGroup: layerContainer
-      }
-    };
-
-    if (draw) {
-      options.draw = draw;
-    }
-
-    if (position) {
-      options.position = position;
-    }
-
-    this.leafletElement = new L.Control.Draw(options); // eslint-disable-line
+    this.leafletElement = createDrawElement(this.props);
   };
 }
+
+function createDrawElement(props) {
+  const { layerContainer } = props.leaflet;
+  const { draw, edit, position } = props;
+  const options = {
+    edit: {
+      ...edit,
+      featureGroup: layerContainer
+    }
+  };
+
+  if (draw) {
+    options.draw = draw;
+  }
+
+  if (position) {
+    options.position = position;
+  }
+
+  return new leaflet.Control.Draw(options);
+}
+
+export default withLeaflet(EditControl);

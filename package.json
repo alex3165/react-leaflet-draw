@@ -39,9 +39,9 @@
   "homepage": "https://github.com/alex3165/react-leaflet-draw#readme",
   "peerDependencies": {
     "leaflet": "^1.0.3",
-    "react-leaflet": "^1.1.6",
-    "leaflet-draw": "^0.4.9",
-    "react": "^15.0.0 || ^16.0.0",
+    "react-leaflet": "^2.0.0-beta.1 || ^2.0.0",
+    "leaflet-draw": "^0.4.9 || ^1.0.2",
+    "react": "^16.3.0",
     "prop-types": "^15.5.2"
   },
   "devDependencies": {
@@ -56,11 +56,11 @@
     "eslint-plugin-react": "^6.4.1",
     "json-loader": "^0.5.4",
     "leaflet": "^1.0.3",
-    "leaflet-draw": "^0.4.9",
+    "leaflet-draw": "^1.0.2",
     "lodash.isequal": "^4.4.0",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-leaflet": "^1.1.0",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-leaflet": "^2.0.0-beta.1",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.12.1"
   }

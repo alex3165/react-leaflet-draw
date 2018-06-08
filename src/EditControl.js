@@ -61,11 +61,6 @@ class EditControl extends MapControl {
 
     let drawElement = createDrawElement(props);
 
-    for (const key in eventHandlers) {
-      if (this.props[key]) {
-        map.on(eventHandlers[key], this.props[key]);
-      }
-    }
     return drawElement;
   }
 
@@ -81,6 +76,12 @@ class EditControl extends MapControl {
     super.componentDidMount();
     const { map } = this.props.leaflet;
     const { onMounted } = this.props;
+
+    for (const key in eventHandlers) {
+      if (this.props[key]) {
+        map.on(eventHandlers[key], this.props[key]);
+      }
+    }
 
     map.on(leaflet.Draw.Event.CREATED, this.onDrawCreate);
 
@@ -111,15 +112,11 @@ class EditControl extends MapControl {
     const { map } = this.props.leaflet;
 
     this.leafletElement.remove(map);
-    this.updateDrawControls();
+    this.leafletElement = createDrawElement(this.props);
     this.leafletElement.addTo(map);
 
     return null;
   }
-
-  updateDrawControls = () => {
-    this.leafletElement = createDrawElement(this.props);
-  };
 }
 
 function createDrawElement(props) {
@@ -140,7 +137,7 @@ function createDrawElement(props) {
     options.position = position;
   }
 
-  return new leaflet.Control.Draw(options);
+  return new Control.Draw(options);
 }
 
 export default withLeaflet(EditControl);

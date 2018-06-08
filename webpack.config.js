@@ -1,5 +1,6 @@
 /* eslint-disable */
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -49,6 +50,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new LodashModuleReplacementPlugin()
+  ],
   optimization: {
     minimizer: [
       new UglifyJsPlugin({

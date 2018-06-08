@@ -1,5 +1,6 @@
 /* eslint-disable */
-var webpack = require('webpack');
+const webpack = require('webpack');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -22,6 +23,7 @@ module.exports = {
     publicPath: 'http://localhost:8000/build'
   },
   plugins: [
+    new LodashModuleReplacementPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {

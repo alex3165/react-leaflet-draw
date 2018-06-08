@@ -57,11 +57,7 @@ class EditControl extends MapControl {
   };
 
   createLeafletElement(props) {
-    const { map } = props.leaflet;
-
-    let drawElement = createDrawElement(props);
-
-    return drawElement;
+    return createDrawElement(props);
   }
 
   onDrawCreate = (e) => {
@@ -130,7 +126,7 @@ function createDrawElement(props) {
   };
 
   if (draw) {
-    options.draw = draw;
+    options.draw = { ...draw };
   }
 
   if (position) {

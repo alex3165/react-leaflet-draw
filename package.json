@@ -3,15 +3,14 @@
   "version": "0.18.0",
   "description": "React component for leaflet-draw",
   "main": "dist/react-leaflet-draw.js",
+  "module": "dist/esm/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean:lib": "rm -Rf ./lib",
-    "compile:lib": "BABEL_ENV=cjs babel src --out-dir lib",
-    "build:lib": "npm run clean:lib && npm run compile:lib",
-    "build:dist": "npm run build:umd && npm run build:umd:min",
+    "build:dist": "npm run build:umd && npm run build:umd:min && npm run build:esm",
     "build:umd": "webpack src/index.js --output-filename react-leaflet-draw.js",
     "build:umd:min": "webpack src/index.js --output-filename react-leaflet-draw.min.js",
-    "build": "npm run build:lib && npm run build:dist",
+    "build:esm": "babel src --out-dir dist/esm",
+    "build": " npm run build:dist",
     "prepublish": "npm run build",
     "version": "npm run build",
     "postversion": "git push && git push --tags",
@@ -23,7 +22,6 @@
     "url": "git+ssh://git@github.com/alex3165/react-leaflet-draw.git"
   },
   "files": [
-    "lib",
     "dist",
     "src"
   ],
@@ -59,7 +57,6 @@
     "eslint-plugin-react": "^7.8.2",
     "leaflet": "^1.0.3",
     "leaflet-draw": "^0.4.9",
-    "lodash": "^4.17.10",
     "lodash-webpack-plugin": "^0.11.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -67,5 +64,8 @@
     "webpack": "^4.10.2",
     "webpack-cli": "^3.0.1",
     "webpack-dev-server": "^3.1.4"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.10"
   }
 }

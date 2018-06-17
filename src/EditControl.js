@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import Draw from 'leaflet-draw'; // eslint-disable-line
-import isEqual from 'lodash/isequal';
+import isEqual from 'lodash-es/isEqual';
 
 import { LayersControl } from 'react-leaflet';
 import { Map } from 'leaflet';

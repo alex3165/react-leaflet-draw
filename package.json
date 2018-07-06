@@ -38,9 +38,9 @@
   },
   "homepage": "https://github.com/alex3165/react-leaflet-draw#readme",
   "peerDependencies": {
-    "leaflet": "^1.0.3",
-    "react-leaflet": "^2.0.0-beta.1 || ^2.0.0",
-    "leaflet-draw": "^0.4.9 || ^1.0.2",
+    "leaflet": "^1.3.0",
+    "react-leaflet": "^2.0.0",
+    "leaflet-draw": "^1.0.2",
     "react": "^16.3.0",
     "prop-types": "^15.5.2"
   },

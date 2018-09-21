@@ -1,15 +1,15 @@
 {
-  "presets": [
-    ["env", { "modules": false }],
-    "react"
-  ],
   "plugins": [
-    "transform-class-properties", "transform-object-rest-spread"
+    "@babel/plugin-proposal-class-properties"
+  ],
+  "presets": [
+    ["@babel/env", { "modules": false }],
+    "@babel/react"
   ],
   "env": {
     "cjs": {
       "plugins": [
-        "transform-es2015-modules-commonjs"
+        "@babel/transform-modules-commonjs"
       ],
     }
   }

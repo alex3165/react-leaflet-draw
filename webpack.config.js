@@ -1,5 +1,9 @@
 /* eslint-disable */
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+
 module.exports = {
+  mode: 'production',
   output: {
     library: 'ReactLeaflet',
     libraryTarget: 'umd'
@@ -38,8 +42,22 @@ module.exports = {
     }
   ],
   module: {
-    loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loader: 'babel'}
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: ["babel-loader"]
+      }
+    ]
+  },
+  plugins: [
+    new LodashModuleReplacementPlugin()
+  ],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        include: /\.min\.js$/
+      })
     ]
   }
 };

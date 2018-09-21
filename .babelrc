@@ -1,7 +1,16 @@
 {
+  "plugins": [
+    "@babel/plugin-proposal-class-properties"
+  ],
   "presets": [
-    "es2015",
-    "react",
-    "stage-0"
-  ]
+    ["@babel/env", { "modules": false }],
+    "@babel/react"
+  ],
+  "env": {
+    "cjs": {
+      "plugins": [
+        "@babel/transform-modules-commonjs"
+      ],
+    }
+  }
 }

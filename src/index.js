@@ -1,1 +1,1 @@
-export EditControl from './EditControl';
+export { default as EditControl } from './EditControl';

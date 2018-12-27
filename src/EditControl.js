@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import Draw from 'leaflet-draw'; // eslint-disable-line
-import isEqual from 'lodash-es/isEqual';
+import equal from 'fast-deep-equal';
 
 import { MapControl, withLeaflet } from 'react-leaflet';
 import leaflet, { Map, Control } from 'leaflet';
@@ -101,7 +101,7 @@ class EditControl extends MapControl {
     // super updates positions if thats all that changed so call this first
     super.componentDidUpdate(prevProps);
 
-    if (isEqual(this.props.draw, prevProps.draw) || this.props.position !== prevProps.position) {
+    if (equal(this.props.draw, prevProps.draw) || this.props.position !== prevProps.position) {
       return false;
     }
 

@@ -53,7 +53,12 @@ class EditControl extends MapControl {
         addLayer: PropTypes.func.isRequired,
         removeLayer: PropTypes.func.isRequired
       })
-    })
+    }),
+    addOnCreate: PropTypes.bool
+  };
+
+  static defaultProps = {
+    addOnCreate: true
   };
 
   createLeafletElement(props) {
@@ -61,10 +66,12 @@ class EditControl extends MapControl {
   }
 
   onDrawCreate = (e) => {
-    const { onCreated } = this.props;
+    const { onCreated, addOnCreate } = this.props;
     const { layerContainer } = this.props.leaflet;
 
-    layerContainer.addLayer(e.layer);
+    if (addOnCreate) {
+      layerContainer.addLayer(e.layer);
+    }
     onCreated && onCreated(e);
   };
 

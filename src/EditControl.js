@@ -75,7 +75,7 @@ class EditControl extends MapControl {
 
     for (const key in eventHandlers) {
       if (this.props[key]) {
-        map.on(eventHandlers[key], this.props[key]);
+        map.on(eventHandlers[key], (evt) => { this.props[key] && this.props[key](evt) });
       }
     }
 

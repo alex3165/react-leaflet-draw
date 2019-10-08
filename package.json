@@ -66,6 +66,7 @@
     "lodash-webpack-plugin": "^0.11.5"
   },
   "dependencies": {
-    "lodash-es": "^4.17.10"
+    "lodash-es": "^4.17.10",
+    "uglifyjs-webpack-plugin": "^2.2.0"
   }
 }

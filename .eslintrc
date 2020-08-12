@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "plugins": [
     "react"
   ],
@@ -8,6 +8,7 @@
   },
   "parserOptions": {
     "sourceType": "module",
+    "ecmaVersion": 2020,
     "ecmaFeatures": {
       "jsx": true
     }
@@ -107,5 +108,10 @@
   "env": {
     "browser": true,
     "es6": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

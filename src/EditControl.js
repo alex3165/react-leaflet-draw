@@ -73,10 +73,14 @@ class EditControl extends MapControl {
     const { map } = this.props.leaflet;
     const { onMounted } = this.props;
 
-    for (const key in eventHandlers) {
-      if (this.props[key]) {
-        map.on(eventHandlers[key], this.props[key]);
-      }
+    for (var key in eventHandlers) {
+      map.on(eventHandlers[key], (evt) => {
+        let handlers = Object.keys(eventHandlers).filter(handler => eventHandlers[handler] == evt.type)
+        if (handlers.length == 1) {
+          let handler = handlers[0]
+          this.props[handler] && this.props[handler](evt)
+        }
+      });
     }
 
     map.on(leaflet.Draw.Event.CREATED, this.onDrawCreate);

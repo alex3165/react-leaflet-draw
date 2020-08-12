@@ -1,5 +1,5 @@
 /* eslint-disable */
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
@@ -54,10 +54,11 @@ module.exports = {
     new LodashModuleReplacementPlugin()
   ],
   optimization: {
+    minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
-        include: /\.min\.js$/
-      })
-    ]
-  }
+      new TerserPlugin({
+        test: /\.min\.js$/,
+      }),
+    ],
+  },
 };

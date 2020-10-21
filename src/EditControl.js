@@ -105,7 +105,12 @@ class EditControl extends MapControl {
     // super updates positions if thats all that changed so call this first
     super.componentDidUpdate(prevProps);
 
-    if (isEqual(this.props.draw, prevProps.draw) || this.props.position !== prevProps.position) {
+    // If the props haven't changed, don't update
+    if (
+      isEqual(this.props.draw, prevProps.draw)
+      && isEqual(this.props.edit, prevProps.edit)
+      && this.props.position === prevProps.position
+    ) {
       return false;
     }
 
@@ -114,6 +119,10 @@ class EditControl extends MapControl {
     this.leafletElement.remove(map);
     this.leafletElement = createDrawElement(this.props);
     this.leafletElement.addTo(map);
+
+    // Remount the new draw control
+    const { onMounted } = this.props;
+    onMounted && onMounted(this.leafletElement);
 
     return null;
   }

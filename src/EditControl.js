@@ -21,26 +21,12 @@ const eventHandlers = {
   onDeleteStop: "draw:deletestop",
 };
 
-// const useDrawElement = createElementHook(createDrawElement, updateDrawElement);
-// 1. Change this to functional component as 'function EditControl = (props) => {}'
 function EditControl(props) {
-  // 2. Define this static props outside as EditControl.PropTypes
-
-  // 3. const context = useLeafletContext() use context i think this is equivalent to const { map } = this.props.leaflet ?
   const context = useLeafletContext();
   const drawRef = useRef();
   const propsRef = useRef(props);
 
   drawRef.current = createDrawElement(props, context);
-  // console.log(context);
-  // createLeafletElement(props) {
-  //   // console.log(createDrawElement(props));
-  //   return createDrawElement(props);
-  // }
-  // 6. const elementRef = useSquareElement(props, context)
-  //   const elementRef = useDrawElement(props, context);
-
-  // console.log({ elementRef });
 
   const onDrawCreate = (e) => {
     console.log(e.layer);
@@ -70,7 +56,7 @@ function EditControl(props) {
 
     console.log({ drawRef });
 
-    onMounted && onMounted(drawRef.current); //? Is this context ? What is leafletElement here ?
+    onMounted && onMounted(drawRef.current);
 
     return () => {
       const { map } = props.leaflet;
@@ -99,92 +85,16 @@ function EditControl(props) {
     drawRef.current = createDrawElement(props, context);
     drawRef.current.addTo(map);
 
-    // Remount the new draw control
     const { onMounted } = props;
     onMounted && onMounted(drawRef.current);
 
     return null;
   }, [props.draw, props.edit, props.position]);
 
-  // onDrawCreate = (e) => {
-  //   const { onCreated } = this.props;
-  //   const { layerContainer } = this.props.leaflet;
-  //   // console.log({ layerContainer });
-  //   layerContainer.addLayer(e.layer);
-  //   onCreated && onCreated(e);
-  // };
-
-  // componentDidMount() {
-  //   // console.log(this.props);
-
-  //   super.componentDidMount();
-  //   const { map } = this.props.leaflet;
-  //   const { onMounted } = this.props;
-
-  //   // console.log({ leaflet: this.props.leaflet });
-  //   // console.log({ mountfind: this.props });
-
-  //   for (const key in eventHandlers) {
-  //     map.on(eventHandlers[key], (evt) => {
-  //       let handlers = Object.keys(eventHandlers).filter(
-  //         (handler) => eventHandlers[handler] === evt.type
-  //       );
-  //       if (handlers.length === 1) {
-  //         let handler = handlers[0];
-  //         this.props[handler] && this.props[handler](evt);
-  //       }
-  //     });
-  //   }
-
-  //   map.on(leaflet.Draw.Event.CREATED, this.onDrawCreate);
-  //   // console.log({ leafel: this.leafletElement });
-  //   onMounted && onMounted(this.leafletElement);
-  // }
-
-  // componentWillUnmount() {
-  //   super.componentWillUnmount();
-  //   const { map } = this.props.leaflet;
-
-  //   map.off(leaflet.Draw.Event.CREATED, this.onDrawCreate);
-
-  //   for (const key in eventHandlers) {
-  //     if (this.props[key]) {
-  //       map.off(eventHandlers[key], this.props[key]);
-  //     }
-  //   }
-  // }
-
-  // componentDidUpdate(prevProps) {
-  //   // super updates positions if thats all that changed so call this first
-  //   super.componentDidUpdate(prevProps);
-
-  //   // If the props haven't changed, don't update
-  //   if (
-  //     isEqual(this.props.draw, prevProps.draw) &&
-  //     isEqual(this.props.edit, prevProps.edit) &&
-  //     this.props.position === prevProps.position
-  //   ) {
-  //     return false;
-  //   }
-
-  //   const { map } = this.props.leaflet;
-
-  //   this.leafletElement.remove(map);
-  //   this.leafletElement = createDrawElement(this.props);
-  //   this.leafletElement.addTo(map);
-  //   console.log(this.leafletElement);
-  //   // Remount the new draw control
-  //   const { onMounted } = this.props;
-  //   onMounted && onMounted(this.leafletElement);
-
-  //   return null;
-  // }
   return null;
 }
 
-// 3. Modify this function as createDrawElement(props,context)
 function createDrawElement(props, context) {
-  // console.log({ props });
   const { layerContainer } = context;
   const { draw, edit, position } = props;
   const options = {
@@ -203,7 +113,6 @@ function createDrawElement(props, context) {
   }
 
   return new Control.Draw(options);
-  // return new Control.Draw(options);
 }
 
 function updateDrawElement(instance, props, prevProps) {
@@ -221,14 +130,12 @@ function updateDrawElement(instance, props, prevProps) {
   leafletElement = createDrawElement(props);
   leafletElement.addTo(map);
 
-  // Remount the new draw control
   const { onMounted } = props;
   onMounted && onMounted(leafletElement);
 
   return null;
 }
 
-// 5. const useDrawElement = createElementHook(createDrawElement, updateDrawElement)
 EditControl.propTypes = {
   ...Object.keys(eventHandlers).reduce((acc, val) => {
     acc[val] = PropTypes.func;

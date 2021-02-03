@@ -84,10 +84,10 @@ export default class EditControlExample extends Component {
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         />
         <FeatureGroup
-        // ref={(reactFGref) => {
-        //   console.log(reactFGref);
-        //   this._onFeatureGroupReady(reactFGref);
-        // }}
+          ref={(reactFGref) => {
+            console.log(reactFGref);
+            this._onFeatureGroupReady(reactFGref);
+          }}
         >
           <EditControl
             position="topright"
@@ -114,8 +114,8 @@ export default class EditControlExample extends Component {
     // populate the leaflet FeatureGroup with the geoJson layers
 
     let leafletGeoJSON = new L.GeoJSON(getGeoJson());
-    let leafletFG = reactFGref.layer;
-    console.log({ leafletFG });
+    let leafletFG = reactFGref;
+    console.log({ reactFGref });
 
     leafletGeoJSON.eachLayer((layer) => {
       leafletFG.addLayer(layer);
@@ -135,7 +135,7 @@ export default class EditControlExample extends Component {
       return;
     }
 
-    const geojsonData = this._editableFG.leafletElement.toGeoJSON();
+    const geojsonData = this._editableFG.toGeoJSON();
     onChange(geojsonData);
   };
 }

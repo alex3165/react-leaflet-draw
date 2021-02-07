@@ -29,10 +29,8 @@ function EditControl(props) {
   drawRef.current = createDrawElement(props, context);
 
   const onDrawCreate = (e) => {
-    console.log(e.layer);
     const { onCreated } = props;
     const container = context.layerContainer || context.map;
-    // console.log({ layerContainer });
     container.addLayer(e.layer);
     onCreated && onCreated(e);
   };
@@ -53,8 +51,6 @@ function EditControl(props) {
       });
     }
     map.on(leaflet.Draw.Event.CREATED, onDrawCreate);
-
-    console.log({ drawRef });
 
     onMounted && onMounted(drawRef.current);
 
@@ -113,27 +109,6 @@ function createDrawElement(props, context) {
   }
 
   return new Control.Draw(options);
-}
-
-function updateDrawElement(instance, props, prevProps) {
-  console.log("Hi");
-  if (
-    isEqual(props.draw, prevProps.draw) &&
-    isEqual(props.edit, prevProps.edit) &&
-    props.position === prevProps.position
-  ) {
-    return false;
-  }
-  const { map } = props.leaflet;
-
-  leafletElement.remove(map);
-  leafletElement = createDrawElement(props);
-  leafletElement.addTo(map);
-
-  const { onMounted } = props;
-  onMounted && onMounted(leafletElement);
-
-  return null;
 }
 
 EditControl.propTypes = {

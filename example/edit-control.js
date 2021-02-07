@@ -85,7 +85,6 @@ export default class EditControlExample extends Component {
         />
         <FeatureGroup
           ref={(reactFGref) => {
-            console.log(reactFGref);
             this._onFeatureGroupReady(reactFGref);
           }}
         >
@@ -115,7 +114,6 @@ export default class EditControlExample extends Component {
 
     let leafletGeoJSON = new L.GeoJSON(getGeoJson());
     let leafletFG = reactFGref;
-    console.log({ reactFGref });
 
     leafletGeoJSON.eachLayer((layer) => {
       leafletFG.addLayer(layer);

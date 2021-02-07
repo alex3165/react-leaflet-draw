@@ -1,8 +1,9 @@
 import { PropTypes } from 'prop-types';
 import Draw from 'leaflet-draw'; // eslint-disable-line
 import isEqual from 'lodash-es/isEqual';
+import React, { useRef } from 'react';
+import { useLeafletContext } from '@react-leaflet/core';
 
-import { MapControl, withLeaflet } from 'react-leaflet';
 import leaflet, { Map, Control } from 'leaflet';
 
 const eventHandlers = {
@@ -20,122 +21,83 @@ const eventHandlers = {
   onDeleteStop: 'draw:deletestop',
 };
 
-class EditControl extends MapControl {
-  static propTypes = {
-    ...Object.keys(eventHandlers).reduce((acc, val) => {
-      acc[val] = PropTypes.func;
-      return acc;
-    }, {}),
-    onCreated: PropTypes.func,
-    onMounted: PropTypes.func,
-    draw: PropTypes.shape({
-      polyline: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-      polygon: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-      rectangle: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-      circle: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-      marker: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-    }),
-    edit: PropTypes.shape({
-      edit: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-      remove: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-      poly: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-      allowIntersection: PropTypes.bool,
-    }),
-    position: PropTypes.oneOf([
-      'topright',
-      'topleft',
-      'bottomright',
-      'bottomleft'
-    ]),
-    leaflet: PropTypes.shape({
-      map: PropTypes.instanceOf(Map),
-      layerContainer: PropTypes.shape({
-        addLayer: PropTypes.func.isRequired,
-        removeLayer: PropTypes.func.isRequired
-      })
-    })
-  };
+function EditControl(props) {
+  const context = useLeafletContext();
+  const drawRef = useRef();
+  const propsRef = useRef(props);
 
-  createLeafletElement(props) {
-    return createDrawElement(props);
-  }
+  drawRef.current = createDrawElement(props, context);
 
-  onDrawCreate = (e) => {
-    const { onCreated } = this.props;
-    const { layerContainer } = this.props.leaflet;
-
-    layerContainer.addLayer(e.layer);
+  const onDrawCreate = (e) => {
+    const { onCreated } = props;
+    const container = context.layerContainer || context.map;
+    container.addLayer(e.layer);
     onCreated && onCreated(e);
   };
 
-  componentDidMount() {
-    super.componentDidMount();
-    const { map } = this.props.leaflet;
-    const { onMounted } = this.props;
+  React.useEffect(() => {
+    const { map } = context;
+    const { onMounted } = props;
 
     for (const key in eventHandlers) {
       map.on(eventHandlers[key], (evt) => {
-        let handlers = Object.keys(eventHandlers).filter(handler => eventHandlers[handler] === evt.type);
+        let handlers = Object.keys(eventHandlers).filter(
+          (handler) => eventHandlers[handler] === evt.type
+        );
         if (handlers.length === 1) {
           let handler = handlers[0];
-          this.props[handler] && this.props[handler](evt);
+          props[handler] && props[handler](evt);
         }
       });
     }
+    map.on(leaflet.Draw.Event.CREATED, onDrawCreate);
 
-    map.on(leaflet.Draw.Event.CREATED, this.onDrawCreate);
+    onMounted && onMounted(drawRef.current);
 
-    onMounted && onMounted(this.leafletElement);
-  }
+    return () => {
+      const { map } = props.leaflet;
 
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    const { map } = this.props.leaflet;
+      map.off(leaflet.Draw.Event.CREATED, onDrawCreate);
 
-    map.off(leaflet.Draw.Event.CREATED, this.onDrawCreate);
-
-    for (const key in eventHandlers) {
-      if (this.props[key]) {
-        map.off(eventHandlers[key], this.props[key]);
+      for (const key in eventHandlers) {
+        if (props[key]) {
+          map.off(eventHandlers[key], props[key]);
+        }
       }
-    }
-  }
+    };
+  }, []);
 
-  componentDidUpdate(prevProps) {
-    // super updates positions if thats all that changed so call this first
-    super.componentDidUpdate(prevProps);
-
-    // If the props haven't changed, don't update
+  React.useEffect(() => {
     if (
-      isEqual(this.props.draw, prevProps.draw)
-      && isEqual(this.props.edit, prevProps.edit)
-      && this.props.position === prevProps.position
+      isEqual(props.draw, propsRef.draw) &&
+      isEqual(props.edit, propsRef.edit) &&
+      props.position === propsRef.position
     ) {
       return false;
     }
+    const { map } = context;
 
-    const { map } = this.props.leaflet;
+    drawRef.current.remove(map);
+    drawRef.current = createDrawElement(props, context);
+    drawRef.current.addTo(map);
 
-    this.leafletElement.remove(map);
-    this.leafletElement = createDrawElement(this.props);
-    this.leafletElement.addTo(map);
-
-    // Remount the new draw control
-    const { onMounted } = this.props;
-    onMounted && onMounted(this.leafletElement);
+    const { onMounted } = props;
+    onMounted && onMounted(drawRef.current);
 
     return null;
-  }
+  }, [props.draw, props.edit, props.position]);
+
+  return null;
 }
 
-function createDrawElement(props) {
-  const { layerContainer } = props.leaflet;
+function createDrawElement(props, context) {
+  const { layerContainer } = context;
   const { draw, edit, position } = props;
   const options = {
     edit: {
       ...edit,
-      featureGroup: layerContainer
-    }
+      featureGroup: layerContainer,
+    },
   };
 
   if (draw) {
@@ -149,4 +111,39 @@ function createDrawElement(props) {
   return new Control.Draw(options);
 }
 
-export default withLeaflet(EditControl);
+EditControl.propTypes = {
+  ...Object.keys(eventHandlers).reduce((acc, val) => {
+    acc[val] = PropTypes.func;
+    return acc;
+  }, {}),
+  onCreated: PropTypes.func,
+  onMounted: PropTypes.func,
+  draw: PropTypes.shape({
+    polyline: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    polygon: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    rectangle: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    circle: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    marker: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  }),
+  edit: PropTypes.shape({
+    edit: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    remove: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    poly: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    allowIntersection: PropTypes.bool,
+  }),
+  position: PropTypes.oneOf([
+    'topright',
+    'topleft',
+    'bottomright',
+    'bottomleft',
+  ]),
+  leaflet: PropTypes.shape({
+    map: PropTypes.instanceOf(Map),
+    layerContainer: PropTypes.shape({
+      addLayer: PropTypes.func.isRequired,
+      removeLayer: PropTypes.func.isRequired,
+    }),
+  }),
+};
+
+export default EditControl;

@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { MapContainer, TileLayer, Circle, FeatureGroup } from "react-leaflet";
-import L from "leaflet";
-import { EditControl } from "../src";
+import React, { Component } from 'react';
+import { MapContainer, TileLayer, Circle, FeatureGroup } from 'react-leaflet';
+import L from 'leaflet';
+import { EditControl } from '../src';
 
 // work around broken icons when using webpack, see https://github.com/PaulLeCam/react-leaflet/issues/255
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-icon.png",
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-icon.png',
   iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-icon.png",
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-icon.png',
   shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-shadow.png",
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-shadow.png',
 });
 
 //
@@ -35,11 +35,11 @@ export default class EditControlExample extends Component {
   _onCreated = (e) => {
     let type = e.layerType;
     let layer = e.layer;
-    if (type === "marker") {
+    if (type === 'marker') {
       // Do marker specific actions
-      console.log("_onCreated: marker created", e);
+      console.log('_onCreated: marker created', e);
     } else {
-      console.log("_onCreated: something else created:", type, e);
+      console.log('_onCreated: something else created:', type, e);
     }
     // Do whatever else you need to. (save to db; etc)
 
@@ -57,23 +57,23 @@ export default class EditControlExample extends Component {
   };
 
   _onMounted = (drawControl) => {
-    console.log("_onMounted", drawControl);
+    console.log('_onMounted', drawControl);
   };
 
   _onEditStart = (e) => {
-    console.log("_onEditStart", e);
+    console.log('_onEditStart', e);
   };
 
   _onEditStop = (e) => {
-    console.log("_onEditStop", e);
+    console.log('_onEditStop', e);
   };
 
   _onDeleteStart = (e) => {
-    console.log("_onDeleteStart", e);
+    console.log('_onDeleteStart', e);
   };
 
   _onDeleteStop = (e) => {
-    console.log("_onDeleteStop", e);
+    console.log('_onDeleteStop', e);
   };
 
   render() {
@@ -142,13 +142,13 @@ export default class EditControlExample extends Component {
 
 function getGeoJson() {
   return {
-    type: "FeatureCollection",
+    type: 'FeatureCollection',
     features: [
       {
-        type: "Feature",
+        type: 'Feature',
         properties: {},
         geometry: {
-          type: "LineString",
+          type: 'LineString',
           coordinates: [
             [-122.47979164123535, 37.830124319877235],
             [-122.47721672058105, 37.809377088502615],
@@ -156,34 +156,34 @@ function getGeoJson() {
         },
       },
       {
-        type: "Feature",
+        type: 'Feature',
         properties: {},
         geometry: {
-          type: "Point",
+          type: 'Point',
           coordinates: [-122.46923446655273, 37.80293476836673],
         },
       },
       {
-        type: "Feature",
+        type: 'Feature',
         properties: {},
         geometry: {
-          type: "Point",
+          type: 'Point',
           coordinates: [-122.48399734497069, 37.83466623607849],
         },
       },
       {
-        type: "Feature",
+        type: 'Feature',
         properties: {},
         geometry: {
-          type: "Point",
+          type: 'Point',
           coordinates: [-122.47867584228514, 37.81893781173967],
         },
       },
       {
-        type: "Feature",
+        type: 'Feature',
         properties: {},
         geometry: {
-          type: "Polygon",
+          type: 'Polygon',
           coordinates: [
             [
               [-122.48069286346434, 37.800637436707525],
@@ -196,10 +196,10 @@ function getGeoJson() {
         },
       },
       {
-        type: "Feature",
+        type: 'Feature',
         properties: {},
         geometry: {
-          type: "Polygon",
+          type: 'Polygon',
           coordinates: [
             [
               [-122.48103886842728, 37.833075326166274],
@@ -219,10 +219,10 @@ function getGeoJson() {
         },
       },
       {
-        type: "Feature",
+        type: 'Feature',
         properties: {},
         geometry: {
-          type: "Polygon",
+          type: 'Polygon',
           coordinates: [
             [
               [-122.48043537139893, 37.82564992009924],

@@ -1,24 +1,24 @@
-import { PropTypes } from "prop-types";
-import Draw from "leaflet-draw"; // eslint-disable-line
-import isEqual from "lodash-es/isEqual";
-import React, { useRef } from "react";
-import { useLeafletContext } from "@react-leaflet/core";
+import { PropTypes } from 'prop-types';
+import Draw from 'leaflet-draw'; // eslint-disable-line
+import isEqual from 'lodash-es/isEqual';
+import React, { useRef } from 'react';
+import { useLeafletContext } from '@react-leaflet/core';
 
-import leaflet, { Map, Control } from "leaflet";
+import leaflet, { Map, Control } from 'leaflet';
 
 const eventHandlers = {
-  onEdited: "draw:edited",
-  onDrawStart: "draw:drawstart",
-  onDrawStop: "draw:drawstop",
-  onDrawVertex: "draw:drawvertex",
-  onEditStart: "draw:editstart",
-  onEditMove: "draw:editmove",
-  onEditResize: "draw:editresize",
-  onEditVertex: "draw:editvertex",
-  onEditStop: "draw:editstop",
-  onDeleted: "draw:deleted",
-  onDeleteStart: "draw:deletestart",
-  onDeleteStop: "draw:deletestop",
+  onEdited: 'draw:edited',
+  onDrawStart: 'draw:drawstart',
+  onDrawStop: 'draw:drawstop',
+  onDrawVertex: 'draw:drawvertex',
+  onEditStart: 'draw:editstart',
+  onEditMove: 'draw:editmove',
+  onEditResize: 'draw:editresize',
+  onEditVertex: 'draw:editvertex',
+  onEditStop: 'draw:editstop',
+  onDeleted: 'draw:deleted',
+  onDeleteStart: 'draw:deletestart',
+  onDeleteStop: 'draw:deletestop',
 };
 
 function EditControl(props) {
@@ -132,10 +132,10 @@ EditControl.propTypes = {
     allowIntersection: PropTypes.bool,
   }),
   position: PropTypes.oneOf([
-    "topright",
-    "topleft",
-    "bottomright",
-    "bottomleft",
+    'topright',
+    'topleft',
+    'bottomright',
+    'bottomleft',
   ]),
   leaflet: PropTypes.shape({
     map: PropTypes.instanceOf(Map),

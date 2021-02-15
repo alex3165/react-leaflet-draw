@@ -26,8 +26,6 @@ function EditControl(props) {
   const drawRef = useRef();
   const propsRef = useRef(props);
 
-  drawRef.current = createDrawElement(props, context);
-
   const onDrawCreate = (e) => {
     const { onCreated } = props;
     const container = context.layerContainer || context.map;
@@ -51,7 +49,8 @@ function EditControl(props) {
       });
     }
     map.on(leaflet.Draw.Event.CREATED, onDrawCreate);
-
+    drawRef.current = createDrawElement(props, context);
+    map.addControl(drawRef.current);
     onMounted && onMounted(drawRef.current);
 
     return () => {
@@ -69,9 +68,9 @@ function EditControl(props) {
 
   React.useEffect(() => {
     if (
-      isEqual(props.draw, propsRef.draw) &&
-      isEqual(props.edit, propsRef.edit) &&
-      props.position === propsRef.position
+      isEqual(props.draw, propsRef.current.draw) &&
+      isEqual(props.edit, propsRef.current.edit) &&
+      props.position === propsRef.current.position
     ) {
       return false;
     }

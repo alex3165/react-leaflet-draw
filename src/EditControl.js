@@ -67,26 +67,19 @@ function EditControl(props) {
   }, []);
 
   React.useEffect(() => {
-    if (
+    const isUpdate =
       isEqual(props.draw, propsRef.current.draw) &&
       isEqual(props.edit, propsRef.current.edit) &&
-      props.position === propsRef.current.position
-    ) {
-      return false;
+      props.position === propsRef.current.position;
+    if (!isUpdate) {
+      const { map } = context;
+      drawRef.current.remove(map);
+      drawRef.current = createDrawElement(props, context);
+      drawRef.current.addTo(map);
+      const { onMounted } = props;
+      onMounted && onMounted(drawRef.current);
     }
-    const { map } = context;
-
-    drawRef.current.remove(map);
-    drawRef.current = createDrawElement(props, context);
-    drawRef.current.addTo(map);
-
-    const { onMounted } = props;
-    onMounted && onMounted(drawRef.current);
-
-    return null;
   }, [props.draw, props.edit, props.position]);
-
-  return null;
 }
 
 function createDrawElement(props, context) {

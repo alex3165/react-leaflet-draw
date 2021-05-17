@@ -54,8 +54,6 @@ function EditControl(props) {
     onMounted && onMounted(drawRef.current);
 
     return () => {
-      const { map } = props.leaflet;
-
       map.off(leaflet.Draw.Event.CREATED, onDrawCreate);
 
       for (const key in eventHandlers) {

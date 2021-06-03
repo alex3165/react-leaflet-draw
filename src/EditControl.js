@@ -61,6 +61,7 @@ function EditControl(props) {
           map.off(eventHandlers[key], props[key]);
         }
       }
+      drawRef.current.remove();
     };
   }, []);
 
@@ -74,7 +75,7 @@ function EditControl(props) {
     }
     const { map } = context;
 
-    drawRef.current.remove(map);
+    drawRef.current.remove();
     drawRef.current = createDrawElement(props, context);
     drawRef.current.addTo(map);
 

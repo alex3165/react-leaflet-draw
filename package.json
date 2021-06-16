@@ -43,7 +43,7 @@
     "leaflet-draw": "^1.0.3",
     "prop-types": "^15.5.2",
     "react": "^16.3.0 || ^17.0.0",
-    "react-leaflet": "^2.0.0"
+    "react-leaflet": "^2.0.0 || ^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

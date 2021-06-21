@@ -26,7 +26,12 @@ interface EditControlProps {
     marker?: DrawOptions.MarkerOptions | boolean;
     circlemarker?: DrawOptions.CircleOptions | boolean;
   },
-
+  edit: {
+    remove: boolean
+    allowIntersection: boolean
+    edit: boolean
+    toolbar: boolean
+  },
 
   position: ControlPosition,
 }

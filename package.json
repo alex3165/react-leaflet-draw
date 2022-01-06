@@ -13,7 +13,6 @@
     "build": "npm run build:dist",
     "prepublish": "npm run build",
     "version": "npm run build",
-    "install": "npm run build",
     "postversion": "git push && git push --tags",
     "example": "webpack-dev-server --config ./example/webpack.config.js",
     "lint": "eslint ./src"

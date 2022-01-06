@@ -6,9 +6,10 @@
   "module": "dist/esm/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:dist": "npm run build:umd && npm run build:umd:min && npm run build:esm",
-    "build:umd": "webpack src/index.js --output-filename react-leaflet-draw.js",
-    "build:umd:min": "webpack src/index.js --output-filename react-leaflet-draw.min.js",
+    "build:dist:off": "npm run build:umd && npm run build:umd:min && npm run build:esm",
+    "build:dist": "npm run build:umd && npm run build:esm",
+    "build:umd": "webpack src/index.js",
+    "build:umd:min:off": "webpack src/index.js --output-filename react-leaflet-draw.min.js",
     "build:esm": "babel src --out-dir dist/esm",
     "build": "npm run build:dist",
     "prepublish": "npm run build",

@@ -7,6 +7,7 @@ module.exports = {
   output: {
     library: 'ReactLeaflet',
     libraryTarget: 'umd',
+    filename: "react-leaflet-draw.js"
   },
   externals: [
     {

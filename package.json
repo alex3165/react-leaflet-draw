@@ -10,7 +10,7 @@
     "build:umd": "webpack src/index.js --output-filename react-leaflet-draw.js",
     "build:umd:min": "webpack src/index.js --output-filename react-leaflet-draw.min.js",
     "build:esm": "babel src --out-dir dist/esm",
-    "build": " npm run build:dist",
+    "build": "npm run build:dist",
     "prepublish": "npm run build",
     "version": "npm run build",
     "postversion": "git push && git push --tags",

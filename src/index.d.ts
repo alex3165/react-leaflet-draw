@@ -15,9 +15,10 @@ interface EditControlProps {
   onDeleted?: Function;
   onDeleteStart?: Function;
   onDeleteStop?: Function;
-
-  onCreated?: Function,
+  
+  onCreated?: Function;
   onMounted?: Function;
+  edit?: EditOptions;
   draw: {
     polyline?: DrawOptions.PolylineOptions | boolean;
     polygon?: DrawOptions.PolygonOptions | boolean;

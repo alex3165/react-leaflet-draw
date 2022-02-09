@@ -31,12 +31,39 @@ function EditControl(props) {
   var drawRef = useRef();
   var propsRef = useRef(props);
 
+  if (props.onInit) {
+    props.onInit();
+  }
+
   var onDrawCreate = function onDrawCreate(e) {
     var onCreated = props.onCreated;
     var container = context.layerContainer || context.map;
     container.addLayer(e.layer);
     onCreated && onCreated(e);
   };
+
+  function createDrawElement(props, context) {
+    var layerContainer = context.layerContainer;
+    var draw = props.draw,
+        edit = props.edit,
+        position = props.position;
+    console.log(props);
+    var options = {
+      edit: _objectSpread(_objectSpread({}, edit), {}, {
+        featureGroup: layerContainer
+      })
+    };
+
+    if (draw) {
+      options.draw = _objectSpread({}, draw);
+    }
+
+    if (position) {
+      options.position = position;
+    }
+
+    return new Control.Draw(options);
+  }
 
   React.useEffect(function () {
     var map = context.map;
@@ -85,33 +112,12 @@ function EditControl(props) {
   return null;
 }
 
-function createDrawElement(props, context) {
-  var layerContainer = context.layerContainer;
-  var draw = props.draw,
-      edit = props.edit,
-      position = props.position;
-  var options = {
-    edit: _objectSpread(_objectSpread({}, edit), {}, {
-      featureGroup: layerContainer
-    })
-  };
-
-  if (draw) {
-    options.draw = _objectSpread({}, draw);
-  }
-
-  if (position) {
-    options.position = position;
-  }
-
-  return new Control.Draw(options);
-}
-
 EditControl.propTypes = _objectSpread(_objectSpread({}, Object.keys(eventHandlers).reduce(function (acc, val) {
   acc[val] = PropTypes.func;
   return acc;
 }, {})), {}, {
   onCreated: PropTypes.func,
+  onInit: PropTypes.func,
   onMounted: PropTypes.func,
   draw: PropTypes.shape({
     polyline: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),

@@ -353,12 +353,39 @@ function EditControl(props) {
   var drawRef = Object(external_amd_react_commonjs_react_commonjs2_react_root_React_["useRef"])();
   var propsRef = Object(external_amd_react_commonjs_react_commonjs2_react_root_React_["useRef"])(props);
 
+  if (props.onInit) {
+    props.onInit();
+  }
+
   var onDrawCreate = function onDrawCreate(e) {
     var onCreated = props.onCreated;
     var container = context.layerContainer || context.map;
     container.addLayer(e.layer);
     onCreated && onCreated(e);
   };
+
+  function createDrawElement(props, context) {
+    var layerContainer = context.layerContainer;
+    var draw = props.draw,
+        edit = props.edit,
+        position = props.position;
+    console.log(props);
+    var options = {
+      edit: _objectSpread(_objectSpread({}, edit), {}, {
+        featureGroup: layerContainer
+      })
+    };
+
+    if (draw) {
+      options.draw = _objectSpread({}, draw);
+    }
+
+    if (position) {
+      options.position = position;
+    }
+
+    return new external_amd_leaflet_commonjs_leaflet_commonjs2_leaflet_root_L_["Control"].Draw(options);
+  }
 
   external_amd_react_commonjs_react_commonjs2_react_root_React_default.a.useEffect(function () {
     var map = context.map;
@@ -407,33 +434,12 @@ function EditControl(props) {
   return null;
 }
 
-function createDrawElement(props, context) {
-  var layerContainer = context.layerContainer;
-  var draw = props.draw,
-      edit = props.edit,
-      position = props.position;
-  var options = {
-    edit: _objectSpread(_objectSpread({}, edit), {}, {
-      featureGroup: layerContainer
-    })
-  };
-
-  if (draw) {
-    options.draw = _objectSpread({}, draw);
-  }
-
-  if (position) {
-    options.position = position;
-  }
-
-  return new external_amd_leaflet_commonjs_leaflet_commonjs2_leaflet_root_L_["Control"].Draw(options);
-}
-
 EditControl.propTypes = _objectSpread(_objectSpread({}, Object.keys(eventHandlers).reduce(function (acc, val) {
   acc[val] = prop_types["PropTypes"].func;
   return acc;
 }, {})), {}, {
   onCreated: prop_types["PropTypes"].func,
+  onInit: prop_types["PropTypes"].func,
   onMounted: prop_types["PropTypes"].func,
   draw: prop_types["PropTypes"].shape({
     polyline: prop_types["PropTypes"].oneOfType([prop_types["PropTypes"].object, prop_types["PropTypes"].bool]),

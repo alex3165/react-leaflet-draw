@@ -25,13 +25,37 @@ function EditControl(props) {
   const context = useLeafletContext();
   const drawRef = useRef();
   const propsRef = useRef(props);
-
+  if (props.onInit) {
+    props.onInit();
+  }
   const onDrawCreate = (e) => {
     const { onCreated } = props;
     const container = context.layerContainer || context.map;
     container.addLayer(e.layer);
     onCreated && onCreated(e);
   };
+
+  function createDrawElement(props, context) {
+    const { layerContainer } = context;
+    const { draw, edit, position } = props;
+    console.log(props);
+    const options = {
+      edit: {
+        ...edit,
+        featureGroup: layerContainer,
+      },
+    };
+
+    if (draw) {
+      options.draw = { ...draw };
+    }
+
+    if (position) {
+      options.position = position;
+    }
+
+    return new Control.Draw(options);
+  }
 
   React.useEffect(() => {
     const { map } = context;
@@ -64,6 +88,7 @@ function EditControl(props) {
     };
   }, []);
 
+
   React.useEffect(() => {
     if (
       isEqual(props.draw, propsRef.current.draw) &&
@@ -87,33 +112,13 @@ function EditControl(props) {
   return null;
 }
 
-function createDrawElement(props, context) {
-  const { layerContainer } = context;
-  const { draw, edit, position } = props;
-  const options = {
-    edit: {
-      ...edit,
-      featureGroup: layerContainer,
-    },
-  };
-
-  if (draw) {
-    options.draw = { ...draw };
-  }
-
-  if (position) {
-    options.position = position;
-  }
-
-  return new Control.Draw(options);
-}
-
 EditControl.propTypes = {
   ...Object.keys(eventHandlers).reduce((acc, val) => {
     acc[val] = PropTypes.func;
     return acc;
   }, {}),
   onCreated: PropTypes.func,
+  onInit: PropTypes.func,
   onMounted: PropTypes.func,
   draw: PropTypes.shape({
     polyline: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),

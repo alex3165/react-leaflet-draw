@@ -70,7 +70,7 @@ function EditControl(props) {
       isEqual(props.edit, propsRef.current.edit) &&
       props.position === propsRef.current.position
     ) {
-      return false;
+      return;
     }
     const { map } = context;
 
@@ -81,7 +81,7 @@ function EditControl(props) {
     const { onMounted } = props;
     onMounted && onMounted(drawRef.current);
 
-    return null;
+    return;
   }, [props.draw, props.edit, props.position]);
 
   return null;

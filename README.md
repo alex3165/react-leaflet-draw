@@ -10,12 +10,14 @@ npm install react-leaflet-draw
 
 ## Getting started
 
-First, include leaflet-draw styles in your project
+First, include leaflet & leaflet-draw styles in your project
 ```html
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css/>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
 ```
 or by including
 ```
+node_modules/leaflet/dist/leaflet.css
 node_modules/leaflet-draw/dist/leaflet.draw.css
 ```
 

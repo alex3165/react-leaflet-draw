@@ -38,7 +38,6 @@ function EditControl(props) {
     const { map } = context;
     const { onMounted } = props;
     if(hasMounted){
-      setHasMounted(true);
       for (const key in eventHandlers) {
         map.on(eventHandlers[key], (evt) => {
           let handlers = Object.keys(eventHandlers).filter(
@@ -60,7 +59,7 @@ function EditControl(props) {
   React.useEffect(() => {
     const { map } = context;
     setHasMounted(true);
-    
+
     return () => {
       map.off(leaflet.Draw.Event.CREATED, onDrawCreate);
 

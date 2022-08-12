@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types';
 import Draw from 'leaflet-draw'; // eslint-disable-line
 import isEqual from 'fast-deep-equal';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useLeafletContext } from '@react-leaflet/core';
 
 import leaflet, { Map, Control } from 'leaflet';
@@ -25,7 +25,6 @@ function EditControl(props) {
   const context = useLeafletContext();
   const drawRef = useRef();
   const propsRef = useRef(props);
-  const [hasMounted, setHasMounted] = useState(false);
 
   const onDrawCreate = (e) => {
     const { onCreated } = props;
@@ -37,28 +36,22 @@ function EditControl(props) {
   React.useEffect(() => {
     const { map } = context;
     const { onMounted } = props;
-    if(hasMounted){
-      for (const key in eventHandlers) {
-        map.on(eventHandlers[key], (evt) => {
-          let handlers = Object.keys(eventHandlers).filter(
-            (handler) => eventHandlers[handler] === evt.type
-          );
-          if (handlers.length === 1) {
-            let handler = handlers[0];
-            props[handler] && props[handler](evt);
-          }
-        });
-      }
-      map.on(leaflet.Draw.Event.CREATED, onDrawCreate);
-      drawRef.current = createDrawElement(props, context);
-      map.addControl(drawRef.current);
-      onMounted && onMounted(drawRef.current);
-    }
-  }, [hasMounted]);
 
-  React.useEffect(() => {
-    const { map } = context;
-    setHasMounted(true);
+    for (const key in eventHandlers) {
+      map.on(eventHandlers[key], (evt) => {
+        let handlers = Object.keys(eventHandlers).filter(
+          (handler) => eventHandlers[handler] === evt.type
+        );
+        if (handlers.length === 1) {
+          let handler = handlers[0];
+          props[handler] && props[handler](evt);
+        }
+      });
+    }
+    map.on(leaflet.Draw.Event.CREATED, onDrawCreate);
+    drawRef.current = createDrawElement(props, context);
+    map.addControl(drawRef.current);
+    onMounted && onMounted(drawRef.current);
 
     return () => {
       map.off(leaflet.Draw.Event.CREATED, onDrawCreate);
@@ -68,6 +61,8 @@ function EditControl(props) {
           map.off(eventHandlers[key], props[key]);
         }
       }
+
+      drawRef.current.remove(map);
     };
   }, []);
 
@@ -88,6 +83,9 @@ function EditControl(props) {
     const { onMounted } = props;
     onMounted && onMounted(drawRef.current);
 
+    return () => {
+      drawRef.current.remove(map);
+    };
   }, [props.draw, props.edit, props.position]);
 
   return null;

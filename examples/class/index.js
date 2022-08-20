@@ -1,6 +1,6 @@
 import React from 'react';
-import { render } from 'react-dom';
 import EditControlExample from './edit-control';
+import { createRoot } from 'react-dom/client';
 
 const example = (
   <div>
@@ -13,4 +13,6 @@ function onChange(geojson) {
   console.log('geojson changed', geojson);
 }
 
-render(example, document.getElementById('app'));
+createRoot(document.getElementById('app')).render(
+  example
+);

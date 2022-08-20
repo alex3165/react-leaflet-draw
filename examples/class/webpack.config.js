@@ -13,28 +13,26 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ["babel-loader"],
+        loader: "babel-loader",
       },
     ],
   },
   output: {
-    path: __dirname + "/build/",
+    path: __dirname + "/dist/",
     filename: "[name].js",
-    publicPath: "http://localhost:8000/build",
+    publicPath: "http://localhost:8000/dist",
   },
   plugins: [
     new LodashModuleReplacementPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
   devServer: {
-    contentBase: __dirname,
     historyApiFallback: true,
     hot: true,
-    inline: true,
     port: 8001,
-    progress: true,
-    stats: {
-      cached: false,
+    open: true,
+    static: {
+      directory: __dirname,
     },
   },
 };

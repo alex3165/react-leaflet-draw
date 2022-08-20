@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MapContainer, TileLayer, Circle, FeatureGroup } from 'react-leaflet';
 import L from 'leaflet';
-import { EditControl } from '../src';
+import { EditControl } from '../../src';
 
 // work around broken icons when using webpack, see https://github.com/PaulLeCam/react-leaflet/issues/255
 
@@ -132,7 +132,7 @@ export default class EditControlExample extends Component {
     if (!this._editableFG || !onChange) {
       return;
     }
-
+    console.log(this._editableFG);
     const geojsonData = this._editableFG.toGeoJSON();
     onChange(geojsonData);
   };

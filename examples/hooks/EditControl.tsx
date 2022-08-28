@@ -10,39 +10,43 @@ interface Props {
 }
 
 export default function EditControlFC({ geojson, setGeojson }: Props) {
-  const [ref, setRef] = React.useState<L.FeatureGroup | null>(null);
+  const ref = React.useRef<L.FeatureGroup>(null);
 
-  const onFeatureGroupReady = (reactFGref: L.FeatureGroup | null) => {
-    new L.GeoJSON(geojson).eachLayer((layer) => {
-      if (reactFGref) reactFGref.addLayer(layer);
-    });
-    if (reactFGref) setRef(reactFGref);
-  };
+  React.useEffect(() => {
+    if (ref.current?.getLayers().length === 0 && geojson) {
+      L.geoJSON(geojson).eachLayer((layer) => {
+        if (
+          layer instanceof L.Polyline ||
+          layer instanceof L.Polygon ||
+          layer instanceof L.Marker
+        ) {
+          if (layer?.feature?.properties.radius && ref.current) {
+            new L.Circle(layer.feature.geometry.coordinates.slice().reverse(), {
+              radius: layer.feature?.properties.radius,
+            }).addTo(ref.current);
+          } else {
+            ref.current?.addLayer(layer);
+          }
+        }
+      });
+    }
+  }, [geojson]);
 
   const handleChange = () => {
-    console.log('handleChange ref', ref);
-    const geo = ref?.toGeoJSON();
+    const geo = ref.current?.toGeoJSON();
+    console.log(geo);
     if (geo?.type === 'FeatureCollection') {
       setGeojson(geo);
     }
   };
-  console.log('ref', ref);
 
   return (
-    <FeatureGroup
-      ref={(newRef) => {
-        console.log('newRef', newRef);
-        onFeatureGroupReady(newRef);
-      }}
-    >
+    <FeatureGroup ref={ref}>
       <EditControl
         position="topright"
         onEdited={handleChange}
         onCreated={handleChange}
         onDeleted={handleChange}
-        onDrawStart={() => console.log('start', ref)}
-        onDrawVertex={() => console.log('vertex', ref)}
-        onMounted={() => console.log('mounted', ref)}
         draw={{
           rectangle: false,
           circle: true,

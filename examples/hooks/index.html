@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React-Leaflet-Draw Hooks Example</title>
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
+    />
+  </head>
+  <style>
+    .leaflet-control-container .leaflet-top,
+    .leaflet-control-container .leaflet-bottom {
+      transform: translate3d(0px, 0px, 0px);
+    }
+    .leaflet-container {
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+    .sr-only {
+      display: none;
+    }
+  </style>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+    <noscript> This app requires JavaScript. </noscript>
+  </body>
+</html>

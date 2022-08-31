@@ -12,7 +12,7 @@ npm install react-leaflet-draw
 
 First, include leaflet & leaflet-draw styles in your project
 ```html
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css/>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css"/>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
 ```
 or by including
@@ -51,7 +51,9 @@ const Component = () => (
 );
 ```
 
-For more details on how to use this plugin check the [example](example/edit-control.js).
+For more details on how to use this plugin check out the examples [example](examples).
+- `yarn example:class` to compile the class example
+- `yarn example:hooks` to compile and run the hooks example
 
 You can pass more options on draw object, this informations can be found [here](https://github.com/Leaflet/Leaflet.draw#user-content-example-leafletdraw-config)
 

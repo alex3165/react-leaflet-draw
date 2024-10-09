@@ -64,7 +64,7 @@ function EditControl(props) {
 
       drawRef.current.remove(map);
     };
-  }, []);
+  }, [props.onCreated, props.onDeleted, props.onEdited]);
 
   React.useEffect(() => {
     if (
@@ -86,7 +86,14 @@ function EditControl(props) {
     return () => {
       drawRef.current.remove(map);
     };
-  }, [props.draw, props.edit, props.position]);
+  }, [
+    props.draw, 
+    props.edit, 
+    props.position, 
+    props.onCreated,
+    props.onDeleted,
+    props.onEdited
+  ]);
 
   return null;
 }

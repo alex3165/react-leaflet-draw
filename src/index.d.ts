@@ -1,7 +1,8 @@
 import * as React from 'react';
+import 'leaflet-draw';
 import type {
 	DrawOptions,
-	EditOptions,
+	Control,
 	ControlPosition,
 	DrawEvents,
 } from 'leaflet';
@@ -22,7 +23,7 @@ interface EditControlProps {
 
 	onCreated?: (v: DrawEvents.Created) => void;
 	onMounted?: Function;
-	edit?: EditOptions;
+	edit?: Omit<Control.EditOptions, "featureGroup">;
 	draw: {
 		polyline?: DrawOptions.PolylineOptions | boolean;
 		polygon?: DrawOptions.PolygonOptions | boolean;

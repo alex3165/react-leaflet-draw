@@ -1,6 +1,6 @@
 {
   "name": "react-leaflet-draw",
-  "version": "0.20.6",
+  "version": "0.21.0",
   "description": "React component for leaflet-draw",
   "main": "dist/react-leaflet-draw.js",
   "module": "dist/esm/index.js",
@@ -43,8 +43,8 @@
     "leaflet": "^1.8.0",
     "leaflet-draw": "^1.0.4",
     "prop-types": "^15.5.2",
-    "react": "^18.0.0",
-    "react-leaflet": "^4.0.0"
+    "react": "^19.1.0",
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -55,8 +55,8 @@
     "@babel/preset-react": "^7.12.1",
     "@types/leaflet": "^1.9.16",
     "@types/leaflet-draw": "^1.0.11",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "babel-loader": "^8.1.0",
     "eslint": "^8.17.0",
     "eslint-plugin-react": "^7.21.5",
@@ -64,11 +64,11 @@
     "leaflet-draw": "^1.0.4",
     "lodash-webpack-plugin": "^0.11.5",
     "lodash.isequal": "^4.4.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-leaflet": "^4.0.0",
-    "vite": "^3.0.8",
-    "webpack": "^5.73.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-leaflet": "^5.0.0",
+    "vite": "^7.0.0",
+    "webpack": "^5.99.9",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.2"
   },

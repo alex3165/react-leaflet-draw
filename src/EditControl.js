@@ -38,15 +38,9 @@ function EditControl(props) {
     const { onMounted } = props;
 
     for (const key in eventHandlers) {
-      map.on(eventHandlers[key], (evt) => {
-        let handlers = Object.keys(eventHandlers).filter(
-          (handler) => eventHandlers[handler] === evt.type
-        );
-        if (handlers.length === 1) {
-          let handler = handlers[0];
-          props[handler] && props[handler](evt);
-        }
-      });
+      if (props[key]) {
+        map.on(eventHandlers[key], props[key]);
+      }
     }
     map.on(leaflet.Draw.Event.CREATED, onDrawCreate);
     drawRef.current = createDrawElement(props, context);
